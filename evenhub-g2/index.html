@@ -804,7 +804,7 @@
         </div>
         <div>
           <div class="brand-title">OpticSentry <span>OS</span></div>
-          <div class="badge-sub">Even Realities G2 Optical Waveguide Terminal</div>
+          <div class="badge-sub">Even Realities G2 Telegram Waveguide Terminal</div>
         </div>
       </a>
 
@@ -815,16 +815,16 @@
           <strong id="headHudStatus" style="color:var(--microled-525)">ACTIVE</strong>
         </div>
         <div class="status-pill">
-          <span>BLE MTU:</span>
-          <strong>20B GATT</strong>
+          <span>TRACK 01:</span>
+          <strong style="color:var(--cyan-precision)">TELEGRAM CHANNELS</strong>
         </div>
         <div class="status-pill">
-          <span>TOKEN DRAIN:</span>
-          <strong style="color:var(--microled-525)">0 TOKENS (SYS 1)</strong>
+          <span>LOCAL SIEVE:</span>
+          <strong style="color:var(--microled-525)">0.34ms (0 TOKENS)</strong>
         </div>
         <div class="status-pill">
           <span>BATTERY:</span>
-          <strong id="headBattery" style="color:var(--cyan-precision)">20.6 hrs</strong>
+          <strong id="headBattery" style="color:var(--cyan-precision)">18.0 hrs</strong>
         </div>
       </div>
     </div>
@@ -937,12 +937,12 @@
                 <!-- FLOATING WAVEGUIDE HUD -->
                 <div class="waveguide-display" id="hudDisplay">
                   <div class="hud-title-bar">
-                    <span>EVEN G2 • OPTICSENTRY</span>
+                    <span id="hudChannelTitle">TG: @DeFiAlphaDigest</span>
                     <span id="hudClock">12:00:00</span>
                   </div>
-                  <div class="hud-price" id="hudAssetPrice">ETH $3,142.50 ▲2.40%</div>
-                  <div class="hud-stats" id="hudAssetStats">SPREAD: 14 bps | SLIP: 0.12%</div>
-                  <div class="hud-prompt" id="hudActionPrompt">TAP RIGHT TEMPLE TO APPROVE</div>
+                  <div class="hud-price" id="hudAssetPrice">ETH BREAKOUT $3,142.50</div>
+                  <div class="hud-stats" id="hudAssetStats">DIGEST: 12.4k ETH Whale Inflow</div>
+                  <div class="hud-prompt" id="hudActionPrompt">1-TAP: APPROVE AI REPLY | SWIPE</div>
                 </div>
 
                 <div style="font-family:var(--font-mono); font-size:9px; color:#475569; position:absolute; bottom:12px; right:16px;">
@@ -956,19 +956,19 @@
           <div class="temple-controls-grid">
             <button class="temple-action-btn" onclick="triggerGesture('SINGLE_TAP')">
               <strong>1-Tap Right Temple</strong>
-              <span>Confirm & Route Order</span>
+              <span>Approve AI Reply / ACK</span>
             </button>
             <button class="temple-action-btn danger" onclick="triggerGesture('DOUBLE_TAP')">
               <strong>2-Tap Right Temple</strong>
-              <span>Emergency Kill Switch / Reset</span>
+              <span>Mute Stream / Stand Down</span>
             </button>
             <button class="temple-action-btn" onclick="triggerGesture('LONG_PRESS')">
               <strong>Long Press (2s)</strong>
-              <span>Stealth Blackout Toggle</span>
+              <span>Stealth Blackout Mode</span>
             </button>
             <button class="temple-action-btn" onclick="cycleAsset()">
               <strong>Swipe Temple Bar</strong>
-              <span>Cycle Watchlist Asset</span>
+              <span>Cycle Pinned TG Channels</span>
             </button>
           </div>
         </div>
@@ -991,30 +991,30 @@
                 <span>JUST NOW</span>
               </div>
               Even G2 Smart Glasses connected via BLE.<br>
-              Firmware: <code>G2-Titanium-2.4.1</code><br>
-              Watchlist active: <code>ETH, BTC, SOL, HYPER, POLY</code>
+              Track 01 Pinned Channels: <code>@DeFiAlphaDigest, @WhaleAlertDesk, @TONEcosystemNews</code><br>
+              AI Sieve active: <code>0.34ms latency · 0 token drain</code>
             </div>
           </div>
 
           <!-- INTERACTIVE QUICK ACTION BUTTONS -->
           <div class="tg-quick-actions">
-            <button class="tg-action-btn" onclick="tgAction('STAND_DOWN')">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              Stand Down
-            </button>
-            <button class="tg-action-btn" onclick="tgAction('OVERRIDE')">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-              Override
-            </button>
-            <button class="tg-action-btn" onclick="tgAction('VIEW_PNL')">
+            <button class="tg-action-btn" onclick="quickCommand('/status')">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-              View PnL
+              /status
+            </button>
+            <button class="tg-action-btn" onclick="quickCommand('/digest')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+              /digest
+            </button>
+            <button class="tg-action-btn" style="border-color:var(--alert-halt); color:#FDA4AF;" onclick="tgAction('TRIGGER_ALERT')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              Simulate Alert
             </button>
           </div>
 
           <!-- INTERACTIVE COMMAND INPUT -->
           <div class="tg-input-bar">
-            <input type="text" class="tg-input-field" id="tgInput" placeholder="Try /status, /ticker btc, or /blackout..." onkeydown="if(event.key==='Enter') sendTgCommand()">
+            <input type="text" class="tg-input-field" id="tgInput" placeholder="Try /status, /digest, or /blackout..." onkeydown="if(event.key==='Enter') sendTgCommand()">
             <button class="tg-send-btn" onclick="sendTgCommand()">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
               Send
@@ -1191,15 +1191,31 @@ TRANSPORT STATUS: ZERO PACKET DROP (ACK 112 μs)
   </footer>
 
   <script>
-    // ASSET STATE
-    const assets = [
-      { sym: 'ETH', price: 3142.50, spread: 14, change: 2.40 },
-      { sym: 'BTC', price: 91480.00, spread: 8, change: 1.85 },
-      { sym: 'SOL', price: 184.20, spread: 22, change: -0.65 },
-      { sym: 'HYPER', price: 14.80, spread: 18, change: 4.12 },
-      { sym: 'POLY', price: 0.88, spread: 12, change: 0.35 }
+    // TRACK 01 PINNED TELEGRAM CHANNELS STATE
+    const telegramChannels = [
+      {
+        channel: '@DeFiAlphaDigest',
+        headline: 'ETH BREAKOUT $3,142.50',
+        digest: 'DIGEST: 12.4k ETH Inflow',
+        sentiment: 'Bullish (+2.4%)',
+        subtext: 'Pinned Channel 01 • 94k Members'
+      },
+      {
+        channel: '@WhaleAlertDesk',
+        headline: 'BTC WHALE $91,480.00',
+        digest: 'ALERT: 5,200 BTC to Vault',
+        sentiment: 'High Priority (+1.8%)',
+        subtext: 'Pinned Channel 02 • Verified Desk'
+      },
+      {
+        channel: '@TONEcosystemNews',
+        headline: 'TON NEWS $5.82',
+        digest: 'UPDATE: Mini App Gateway',
+        sentiment: 'Active Growth (+4.1%)',
+        subtext: 'Pinned Channel 03 • Telegram Native'
+      }
     ];
-    let assetIdx = 0;
+    let channelIdx = 0;
     let circuitTripped = false;
     let stealthMode = false;
 
@@ -1248,14 +1264,18 @@ TRANSPORT STATUS: ZERO PACKET DROP (ACK 112 μs)
       document.getElementById('hudClock').innerText = d.toTimeString().split(' ')[0];
 
       const card = document.getElementById('hudChassisCard');
-      const a = assets[assetIdx];
+      const ch = telegramChannels[channelIdx];
 
       if (stealthMode) {
         card.classList.add('hud-stealth-active');
-        document.getElementById('headHudStatus').innerText = 'BLACKOUT';
+        document.getElementById('headHudStatus').innerText = 'MUTED';
         document.getElementById('headHudStatus').style.color = 'var(--text-steel)';
+        document.getElementById('hudChannelTitle').innerText = 'OPTICSENTRY · MUTE';
+        document.getElementById('hudAssetPrice').innerText = 'STREAM MUTED (0.00 mW)';
+        document.getElementById('hudAssetStats').innerText = 'NOTIFICATIONS SUSPENDED';
+        document.getElementById('hudActionPrompt').innerText = '1-TAP OR SWIPE TO RESUME';
         if (window.syncEvenGlasses) {
-          window.syncEvenGlasses({ sym: a.sym, price: a.price, change: a.change, spread: a.spread, circuitTripped, stealthMode: true });
+          window.syncEvenGlasses({ channelIdx, circuitTripped, stealthMode: true });
         }
         return;
       } else {
@@ -1266,55 +1286,63 @@ TRANSPORT STATUS: ZERO PACKET DROP (ACK 112 μs)
 
       if (circuitTripped) {
         card.classList.add('hud-alert-active');
-        document.getElementById('hudAssetPrice').innerText = `[!] HALT: ${a.sym}`;
-        document.getElementById('hudAssetStats').innerText = `SPREAD > 35 bps | BREAKER LOCKED`;
-        document.getElementById('hudActionPrompt').innerText = `2-TAP TEMPLE TO DISMISS`;
-        document.getElementById('labelBreakerStatus').innerText = 'ENGAGED';
+        document.getElementById('hudChannelTitle').innerText = '⚠ PRIORITY ALERT ⚠';
+        document.getElementById('hudAssetPrice').innerText = '@OpticSentryBot [ALERT]';
+        document.getElementById('hudAssetStats').innerText = 'PHISHING LINK IN VIP GROUP';
+        document.getElementById('hudActionPrompt').innerText = '1-TAP: APPROVE AI MUTE';
+        document.getElementById('labelBreakerStatus').innerText = 'ALERT ACTIVE';
         document.getElementById('labelBreakerStatus').style.color = 'var(--alert-halt)';
-        document.getElementById('valBreakerState').innerText = 'CIRCUIT HALTED';
+        document.getElementById('valBreakerState').innerText = 'INTERCEPTED';
         document.getElementById('valBreakerState').style.color = 'var(--alert-halt)';
       } else {
         card.classList.remove('hud-alert-active');
-        const arrow = a.change >= 0 ? '▲' : '▼';
-        document.getElementById('hudAssetPrice').innerText = `${a.sym} $${a.price.toLocaleString('en-US', {minimumFractionDigits: 2})} ${arrow}${Math.abs(a.change)}%`;
-        document.getElementById('hudAssetStats').innerText = `SPREAD: ${a.spread} bps | SLIP: 0.12%`;
-        document.getElementById('hudActionPrompt').innerText = `TAP RIGHT TEMPLE TO APPROVE`;
+        document.getElementById('hudChannelTitle').innerText = `TG: ${ch.channel}`;
+        document.getElementById('hudAssetPrice').innerText = ch.headline;
+        document.getElementById('hudAssetStats').innerText = ch.digest;
+        document.getElementById('hudActionPrompt').innerText = '1-TAP: APPROVE | SWIPE: CHAT';
         document.getElementById('labelBreakerStatus').innerText = 'NOMINAL';
         document.getElementById('labelBreakerStatus').style.color = 'var(--microled-525)';
-        document.getElementById('valBreakerState').innerText = 'LOCKED 35bps';
+        document.getElementById('valBreakerState').innerText = 'STREAM LIVE';
         document.getElementById('valBreakerState').style.color = 'var(--text-platinum)';
       }
 
       if (window.syncEvenGlasses) {
-        window.syncEvenGlasses({ sym: a.sym, price: a.price, change: a.change, spread: a.spread, circuitTripped, stealthMode: false });
+        window.syncEvenGlasses({ channelIdx, circuitTripped, stealthMode: false });
       }
     }
 
     function triggerGesture(type) {
       if (type === 'SINGLE_TAP') {
         clickSound(880);
-        if (!circuitTripped) {
-          const a = assets[assetIdx];
-          addTgMessage("ORDER ROUTED", `Right temple single-tap confirmed order on ${a.sym} at $${a.price.toFixed(2)}. Routed to testnet.`);
+        if (circuitTripped) {
+          circuitTripped = false;
+          addTgMessage("YOU (via G2 Temple 1-Tap)", "<code>Confirmed: Approved AI Mute</code> on flagged sender.");
+          addTgMessage("@OpticSentryBot", "Malicious actor muted from group. Safe state restored on Even G2.");
+        } else {
+          const ch = telegramChannels[channelIdx];
+          addTgMessage("YOU (via G2 Temple 1-Tap)", `<code>Approved AI Forward: ${ch.channel} digest</code>`);
+          addTgMessage("@OpticSentryBot", `Digest from ${ch.channel} archived & verified to your saved messages.`);
         }
       } else if (type === 'DOUBLE_TAP') {
         clickSound(320);
         circuitTripped = false;
-        addTgMessage("BREAKER RESET", `Circuit breaker disengaged by temple double-tap. Normal HUD restored.`);
+        stealthMode = !stealthMode;
+        addTgMessage("YOU (via G2 Temple 2-Tap)", `<code>Toggle Stream Mute / Stand Down</code>`);
+        addTgMessage("@OpticSentryBot", stealthMode ? "Even G2 optical HUD notifications muted (0.00 mW)." : "Telegram stream restored to Even G2.");
       } else if (type === 'LONG_PRESS') {
         clickSound(450);
         stealthMode = !stealthMode;
-        addTgMessage("STEALTH TOGGLE", stealthMode ? "Optical HUD blackout engaged. Display powered down." : "Optical HUD reactivated.");
+        addTgMessage("STEALTH TOGGLE", stealthMode ? "Optical HUD blackout engaged." : "Optical HUD reactivated.");
       }
       updateHUD();
     }
 
     function cycleAsset() {
       clickSound(720);
-      assetIdx = (assetIdx + 1) % assets.length;
+      channelIdx = (channelIdx + 1) % telegramChannels.length;
       updateHUD();
-      const a = assets[assetIdx];
-      addTgMessage("WATCHLIST SWITCH", `Even G2 HUD switched to ${a.sym} ($${a.price.toFixed(2)}).`);
+      const ch = telegramChannels[channelIdx];
+      addTgMessage("TELEGRAM STREAM", `Even G2 HUD cycled to pinned channel <strong>${ch.channel}</strong> (${ch.subtext}).`);
     }
 
     function updateLabPower(pixels) {
@@ -1345,52 +1373,45 @@ TRANSPORT STATUS: ZERO PACKET DROP (ACK 112 μs)
       feed.scrollTop = feed.scrollHeight;
     }
 
+    function quickCommand(cmd) {
+      const input = document.getElementById('tgInput');
+      input.value = cmd;
+      sendTgCommand();
+    }
+
     function tgAction(act) {
       clickSound(650);
-      if (act === 'STAND_DOWN') {
+      if (act === 'TRIGGER_ALERT') {
         circuitTripped = true;
         updateHUD();
-        addTgMessage("COMMAND: STAND DOWN", "Stand down command acknowledged from Telegram. Even G2 optical HUD locked in safety mode.");
-      } else if (act === 'OVERRIDE') {
-        circuitTripped = false;
-        updateHUD();
-        addTgMessage("COMMAND: OVERRIDE", "Safety override authenticated via Telegram HMAC-SHA256 signature. Execution unblocked.");
-      } else if (act === 'VIEW_PNL') {
-        addTgMessage("LIVE PnL REPORT", "Open Positions: 3 active<br>• ETH/USDT: +$342.10 (+3.8%)<br>• BTC/USDT: +$1,120.50 (+1.9%)<br>• SOL/USDT: -$18.40 (-0.3%)<br><strong>Net Daily PnL: +$1,444.20</strong>");
+        addTgMessage("⚠ INBOUND TELEGRAM PRIORITY ALERT", "@OpticSentryBot: Malicious phishing URL detected in Telegram Trading VIP group. Heads-up routed to Even G2 waveguide. <strong>Tap right temple once to approve automated mute</strong>.");
       }
     }
 
-    function sendTgCommand() {
+    function sendTgCommand(customVal) {
       const input = document.getElementById('tgInput');
-      const val = input.value.trim();
+      const val = (customVal || input.value).trim();
       if (!val) return;
       input.value = '';
       clickSound(800);
 
-      addTgMessage("YOU", `<code>${val}</code>`);
+      addTgMessage("YOU (Telegram Web)", `<code>${val}</code>`);
 
       setTimeout(() => {
         const lower = val.toLowerCase();
         if (lower.startsWith('/status')) {
-          addTgMessage("BOT STATUS", `Even G2 Battery: 93.8% (20.6 hrs remaining)<br>BLE MTU: 20 bytes<br>Active Asset: ${assets[assetIdx].sym}<br>Breaker State: ${circuitTripped ? 'ENGAGED' : 'NOMINAL'}`);
-        } else if (lower.startsWith('/ticker')) {
-          const sym = lower.replace('/ticker', '').trim().toUpperCase();
-          const found = assets.findIndex(a => a.sym === sym);
-          if (found !== -1) {
-            assetIdx = found;
-            updateHUD();
-            addTgMessage("BOT DISPATCH", `Switched Even G2 optical display to ${sym}.`);
-          } else {
-            addTgMessage("BOT ERROR", `Asset ${sym} not found in active watchlist.`);
-          }
-        } else if (lower.startsWith('/blackout')) {
+          addTgMessage("@OpticSentryBot", `⚡ <strong>System Status: Active</strong><br>• Even G2 Battery: 18.0 hrs (Monochrome MicroLED 525nm)<br>• Pinned Channels: 3 synchronized (@DeFiAlphaDigest, @WhaleAlertDesk, @TONEcosystemNews)<br>• Two-Way Temple Bridge: ONLINE<br>• Threat Sentinel: 0 unread phishing anomalies`);
+        } else if (lower.startsWith('/digest')) {
+          const ch = telegramChannels[channelIdx];
+          addTgMessage("@OpticSentryBot", `📡 <strong>Latest Channel Digest: ${ch.channel}</strong><br>• Headline: ${ch.headline}<br>• Signal: ${ch.digest}<br>• Sent to G2 Waveguide in 0.34ms.`);
+        } else if (lower.startsWith('/blackout') || lower.startsWith('/mute')) {
           stealthMode = !stealthMode;
           updateHUD();
-          addTgMessage("BOT DISPATCH", stealthMode ? "Optical blackout engaged on Even G2." : "Optical blackout deactivated.");
+          addTgMessage("@OpticSentryBot", stealthMode ? "Even G2 optical HUD muted. Notifications paused." : "Even G2 optical HUD active.");
         } else {
-          addTgMessage("BOT HELP", "Available commands:<br>• <code>/status</code> — System telemetry<br>• <code>/ticker [sym]</code> — Switch HUD asset<br>• <code>/blackout</code> — Toggle stealth display");
+          addTgMessage("@OpticSentryBot", "Commands available:<br>• <code>/status</code> — G2 telemetry & Telegram sync<br>• <code>/digest</code> — Push latest channel summary to glasses<br>• <code>/mute</code> — Toggle stealth blackout");
         }
-      }, 350);
+      }, 250);
     }
 
     // Jitter live latency

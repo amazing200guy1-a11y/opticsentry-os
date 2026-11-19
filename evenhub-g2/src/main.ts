@@ -8,7 +8,8 @@ import {
 
 // =====================================================================
 // OPTICSENTRY OS — EVEN REALITIES G2 SMART GLASSES BRIDGE
-// Synchronizes the Titanium Cockpit with the G2 MicroLED Waveguide Display
+// Track 01: Messaging & News (Telegram Channel & Bot Sentinel)
+// Synchronizes Telegram Digest Stream with the G2 MicroLED Waveguide Display
 // =====================================================================
 
 declare global {
@@ -22,54 +23,76 @@ declare global {
 let bridgeInstance: any = null
 let currentHUDContent = ''
 
+interface TelegramChannelItem {
+  channel: string
+  headline: string
+  digest: string
+  subtext: string
+  priority: string
+}
+
+const telegramChannels: TelegramChannelItem[] = [
+  {
+    channel: '@DeFiAlphaDigest',
+    headline: 'ETH BREAKOUT $3,142.50',
+    digest: 'DIGEST: 12.4k ETH Inflow',
+    subtext: 'SENTIMENT: Bullish (+2.4%)',
+    priority: 'NORMAL'
+  },
+  {
+    channel: '@WhaleAlertDesk',
+    headline: 'BTC WHALE $91,480.00',
+    digest: 'ALERT: 5,200 BTC to Vault',
+    subtext: 'PRIORITY: HIGH (Track 01)',
+    priority: 'HIGH'
+  },
+  {
+    channel: '@TONEcosystemNews',
+    headline: 'TON NEWS $5.82 (+4.1%)',
+    digest: 'UPDATE: Mini App Gateway',
+    subtext: 'COMMUNITY: 94k Active Users',
+    priority: 'NORMAL'
+  }
+]
+
+let channelIndex = 0
+
 function formatCleanHUD(data?: any): string {
-  if (!data) {
+  if (data && data.stealthMode) {
     return [
-      'OPTICSENTRY OS · G2 SENTINEL',
+      'OPTICSENTRY · TELEGRAM MUTE',
       '────────────────────────',
-      'ETH / USD   $3,138.43  ▲ +2.4%',
-      'SPREAD: 4.2 bps  BAT: 18.0h',
-      '@OpticSentryBot [SYNCED]',
+      'HUD STREAM: MUTED (0.00 mW)',
+      'NOTIFICATIONS SUSPENDED',
       '────────────────────────',
-      '[1-TAP: ACK] [SWIPE: ASSET]'
+      '[1-TAP OR SWIPE TO RESUME]'
     ].join('\n')
   }
 
-  if (data.stealthMode) {
+  if (data && data.circuitTripped) {
     return [
-      'OPTICSENTRY · STEALTH BLACKOUT',
-      '────────────────────────',
-      'DISPLAY POWER: 0.00 mW',
-      'OPTICAL PIXELS DORMANT',
-      '────────────────────────',
-      '[1-TAP OR SWIPE TO RESTORE]'
-    ].join('\n')
-  }
-
-  if (data.circuitTripped) {
-    return [
-      '⚠ OPTICSENTRY RISK BREAKER ⚠',
+      '⚠ TELEGRAM PRIORITY ALERT ⚠',
       '════════════════════════',
-      `${data.sym || 'ETH'} / USD   $${(data.price || 3088).toLocaleString('en-US', {minimumFractionDigits: 2})}  ▼ SHOCK`,
-      `SPREAD: ${data.spread || 48.6} bps (>35 bps)`,
-      'ALERT SENT ➔ @OpticSentryBot',
+      'FROM: @OpticSentryBot',
+      'MALICIOUS PHISHING DETECTED',
+      'IN TRADING ALPHA VIP GROUP!',
       '════════════════════════',
-      '[1-TAP: ACK]  [2-TAP: RESET]'
+      '[1-TAP: APPROVE AI MUTE]'
     ].join('\n')
   }
 
-  const sign = (data.change ?? 2.48) >= 0 ? '+' : ''
-  const arrow = (data.change ?? 2.48) >= 0 ? '▲' : '▼'
-  const priceFormatted = `$${(data.price || 3138.43).toLocaleString('en-US', {minimumFractionDigits: 2})}`
+  // Derive current channel item
+  const idx = (data && typeof data.channelIdx === 'number') ? data.channelIdx : channelIndex
+  const current = telegramChannels[idx % telegramChannels.length]
 
   return [
-    'OPTICSENTRY OS · G2 SENTINEL',
+    `TG: ${current.channel}`,
     '────────────────────────',
-    `${(data.sym || 'ETH') + ' / USD'}   ${priceFormatted}  ${arrow}${sign}${Math.abs(data.change ?? 2.48).toFixed(1)}%`,
-    `SPREAD: ${(data.spread ?? 4.2)} bps  BAT: 18.0h`,
-    '@OpticSentryBot [SYNCED]',
+    current.headline,
+    current.digest,
+    current.subtext,
     '────────────────────────',
-    '[1-TAP: ACK] [SWIPE: ASSET]'
+    '[1-TAP: APPROVE] [SWIPE]'
   ].join('\n')
 }
 
@@ -94,6 +117,9 @@ async function upgradeG2Display(content: string) {
 
 // Expose sync hook for the Titanium Cockpit
 window.syncEvenGlasses = (data: any) => {
+  if (data && typeof data.channelIdx === 'number') {
+    channelIndex = data.channelIdx
+  }
   const content = formatCleanHUD(data)
   upgradeG2Display(content)
 }
