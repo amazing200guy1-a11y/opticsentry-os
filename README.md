@@ -2,6 +2,7 @@
 
 [![Heads Up: Even Realities](https://img.shields.io/badge/Hackathon-Even%20Realities%20x%20TVM%20Ventures-00F5FF?style=for-the-badge&logo=dorahacks)](https://dorahacks.io)
 [![Formal Verification](https://img.shields.io/badge/Tests-15%2F15%20PASSING%20(0.025s)-10B981?style=for-the-badge)](./test_opticsentry.py)
+[![Live Cockpit](https://img.shields.io/badge/Live%20Cockpit-GitHub%20Pages-6366F1?style=for-the-badge)](https://amazing200guy1-a11y.github.io/opticsentry-os/)
 [![Latency](https://img.shields.io/badge/Fast--Path-0.34ms%20(0%20Tokens)-6366F1?style=for-the-badge)]()
 [![Battery Runtime](https://img.shields.io/badge/Even%20G2%20Battery->20%20Hours%20Active-10B981?style=for-the-badge)]()
 [![Token Optimization](https://img.shields.io/badge/LLM%20Token%20Savings-99.38%25-EC4899?style=for-the-badge)]()
