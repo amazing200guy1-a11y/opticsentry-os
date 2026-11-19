@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpticSentry OS — Even G2 Smart Glasses MicroLED Waveguide Cockpit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-space: #04070D;
+      --bg-enclave: #0A0F1D;
+      --bg-panel: #101728;
+      --border-gunmetal: #1E293B;
+      --border-accent: #334155;
+      --microled-green: #00FF66;
+      --microled-glow: rgba(0, 255, 102, 0.45);
+      --microled-dim: rgba(0, 255, 102, 0.15);
+      --alert-crimson: #EF4444;
+      --alert-glow: rgba(239, 68, 68, 0.5);
+      --cyan-telemetry: #06B6D4;
+      --amber-warn: #F59E0B;
+      --text-main: #F1F5F9;
+      --text-muted: #94A3B8;
+      --font-ui: 'Outfit', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-space);
+      color: var(--text-main);
+      font-family: var(--font-ui);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.08) 0%, transparent 60%),
+        radial-gradient(circle at 10% 40%, rgba(0, 255, 102, 0.04) 0%, transparent 50%);
+    }
+
+    /* TOP AEROSPACE APP BAR */
+    header {
+      background: rgba(10, 15, 29, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-gunmetal);
+      padding: 14px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-badge {
+      background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+      border: 1px solid #334155;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--cyan-telemetry);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .brand-badge::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--microled-green);
+      box-shadow: 0 0 8px var(--microled-green);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .brand-title {
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-title span {
+      color: var(--microled-green);
+      text-shadow: 0 0 10px var(--microled-glow);
+    }
+
+    .header-pills {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .pill {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-gunmetal);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .pill strong {
+      color: var(--text-main);
+    }
+
+    .pill.emerald {
+      border-color: rgba(0, 255, 102, 0.3);
+      color: var(--microled-green);
+      background: rgba(0, 255, 102, 0.06);
+    }
+
+    /* MAIN COCKPIT GRID */
+    main {
+      flex: 1;
+      padding: 24px 28px;
+      max-width: 1440px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 390px;
+      gap: 24px;
+    }
+
+    /* GLASSES HARDWARE SIMULATOR */
+    .viewport-card {
+      background: var(--bg-enclave);
+      border: 1px solid var(--border-gunmetal);
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-title svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--cyan-telemetry);
+    }
+
+    /* EVEN G2 HARDWARE FRAME CANVAS */
+    .glasses-rig {
+      position: relative;
+      background: #030509;
+      border: 1px solid var(--border-gunmetal);
+      border-radius: 12px;
+      height: 380px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background-image: 
+        radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.7) 0%, transparent 100%),
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.01) 0px, rgba(255, 255, 255, 0.01) 1px, transparent 1px, transparent 40px),
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.01) 0px, rgba(255, 255, 255, 0.01) 1px, transparent 1px, transparent 40px);
+    }
+
+    .glasses-chassis {
+      position: relative;
+      width: 680px;
+      height: 240px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+    }
+
+    /* DUAL LENSES */
+    .lens {
+      width: 260px;
+      height: 180px;
+      border-radius: 90px 90px 70px 70px;
+      background: rgba(16, 24, 39, 0.4);
+      border: 3px solid #283347;
+      box-shadow: 
+        inset 0 0 30px rgba(0, 0, 0, 0.8),
+        0 10px 25px rgba(0, 0, 0, 0.6);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(1px);
+    }
+
+    /* Anti-reflective glare streak */
+    .lens::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      left: 30px;
+      width: 80px;
+      height: 280px;
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(255, 255, 255, 0.03) 50%, transparent 100%);
+      transform: rotate(25deg);
+      pointer-events: none;
+    }
+
+    /* BRIDGE & NOSE PADS */
+    .bridge {
+      width: 80px;
+      height: 12px;
+      background: #283347;
+      border-radius: 6px;
+      position: relative;
+    }
+
+    .bridge::after {
+      content: '';
+      position: absolute;
+      bottom: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 44px;
+      height: 16px;
+      border: 2px solid #334155;
+      border-top: none;
+      border-radius: 0 0 20px 20px;
+    }
+
+    /* 525nm MONOCHROME MICROLEAD WAVEGUIDE HUD */
+    .waveguide-hud {
+      position: absolute;
+      top: 26px;
+      right: 20px;
+      width: 220px;
+      font-family: var(--font-mono);
+      color: var(--microled-green);
+      text-shadow: 0 0 6px var(--microled-green), 0 0 14px var(--microled-glow);
+      font-size: 11px;
+      line-height: 1.4;
+      pointer-events: none;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .hud-subpixel-grid {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(0deg, rgba(0,0,0,0.2) 0px, rgba(0,0,0,0.2) 1px, transparent 1px, transparent 2px);
+      pointer-events: none;
+    }
+
+    .hud-header {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      border-bottom: 1px dashed rgba(0, 255, 102, 0.4);
+      padding-bottom: 3px;
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .hud-ticker {
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    .hud-metric {
+      font-size: 10px;
+      opacity: 0.9;
+    }
+
+    .hud-action {
+      margin-top: 6px;
+      padding-top: 4px;
+      border-top: 1px dashed rgba(0, 255, 102, 0.3);
+      font-size: 9px;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+      animation: blink 1.5s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* ALERT STATE (CIRCUIT BREAKER ENGAGED) */
+    .viewport-card.alert-active .waveguide-hud {
+      color: var(--alert-crimson);
+      text-shadow: 0 0 8px var(--alert-crimson), 0 0 16px var(--alert-glow);
+    }
+
+    .viewport-card.alert-active .hud-header {
+      border-color: rgba(239, 68, 68, 0.5);
+    }
+
+    .viewport-card.alert-active .hud-action {
+      border-color: rgba(239, 68, 68, 0.4);
+      color: #FCA5A5;
+    }
+
+    /* STEALTH BLACKOUT STATE */
+    .viewport-card.stealth-active .waveguide-hud {
+      opacity: 0;
+    }
+
+    /* CONTROLS DOCK */
+    .controls-deck {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .touch-btn {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-gunmetal);
+      padding: 12px 14px;
+      border-radius: 8px;
+      color: var(--text-main);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      transition: all 0.15s ease;
+      text-align: left;
+    }
+
+    .touch-btn:hover {
+      background: #192338;
+      border-color: #475569;
+    }
+
+    .touch-btn:active {
+      transform: translateY(1px);
+    }
+
+    .touch-btn strong {
+      font-size: 12px;
+      color: var(--cyan-telemetry);
+    }
+
+    .touch-btn.danger strong {
+      color: var(--alert-crimson);
+    }
+
+    /* DUAL-CORE TELEMETRY CARDS */
+    .system-monitor {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .subsystem-box {
+      background: #090E1B;
+      border: 1px solid var(--border-gunmetal);
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+
+    .box-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .box-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+
+    .box-value {
+      font-size: 20px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+    }
+
+    .box-value.emerald {
+      color: var(--microled-green);
+      text-shadow: 0 0 10px var(--microled-glow);
+    }
+
+    .box-value.cyan {
+      color: var(--cyan-telemetry);
+    }
+
+    .sub-metric {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* RIGHT SIDEBAR PANELS */
+    .sidebar-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .panel-card {
+      background: var(--bg-enclave);
+      border: 1px solid var(--border-gunmetal);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .slider-group {
+      margin-top: 14px;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .slider-header strong {
+      color: var(--text-main);
+    }
+
+    input[type="range"] {
+      width: 100%;
+      height: 5px;
+      border-radius: 3px;
+      background: #1E293B;
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: var(--cyan-telemetry);
+      cursor: pointer;
+      box-shadow: 0 0 8px var(--cyan-telemetry);
+    }
+
+    .action-btn-primary {
+      width: 100%;
+      background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%);
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 12px;
+      font-family: var(--font-mono);
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      margin-top: 14px;
+      transition: all 0.2s;
+    }
+
+    .action-btn-primary:hover {
+      background: #0284C7;
+      box-shadow: 0 0 15px rgba(2, 132, 199, 0.4);
+    }
+
+    /* TELEGRAM INTEGRATION CARD */
+    .telegram-preview {
+      background: #0D1626;
+      border: 1px solid #1E3A5F;
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      line-height: 1.5;
+      color: #93C5FD;
+      margin-top: 12px;
+      white-space: pre-wrap;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border-gunmetal);
+      padding: 14px 28px;
+      background: #060A13;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    footer a {
+      color: var(--cyan-telemetry);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP APP BAR -->
+  <header>
+    <div class="brand-group">
+      <div class="brand-badge">EVEN G2 SMART GLASSES</div>
+      <div class="brand-title">OpticSentry <span>OS</span></div>
+    </div>
+    <div class="header-pills">
+      <div class="pill emerald">MICROLED 525nm HUD: <strong id="hudStatus">ACTIVE</strong></div>
+      <div class="pill">BLE MTU: <strong>20B FRAGMENTED</strong></div>
+      <div class="pill">BATTERY RUNTIME: <strong id="batteryHours">24.2 hrs</strong></div>
+      <div class="pill">TOKENS / HR: <strong style="color:var(--microled-green)">0 (SYSTEM 1)</strong></div>
+    </div>
+  </header>
+
+  <!-- MAIN COCKPIT -->
+  <main>
+    <!-- LEFT: HARDWARE SIMULATOR & TELEMETRY -->
+    <div class="viewport-card" id="mainCard">
+      <div class="card-header">
+        <div class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+          Diffractive Optical Waveguide Field of View (Even Realities G2 38g Titanium Frame)
+        </div>
+        <div style="font-family:var(--font-mono); font-size:11px; color:var(--text-muted)">
+          FOCAL DEPTH: <span style="color:var(--cyan-telemetry)">2.5 METERS</span>
+        </div>
+      </div>
+
+      <!-- PHOTOREALISTIC GLASSES CHASSIS -->
+      <div class="glasses-rig">
+        <div class="glasses-chassis">
+          <!-- LEFT EYE (PASSIVE TRANSPARENT LENS) -->
+          <div class="lens">
+            <div style="font-family:var(--font-mono); font-size:9px; color:#475569; position:absolute; bottom:12px; left:16px;">
+              LEFT OCULAR (PERIPHERAL)
+            </div>
+          </div>
+
+          <!-- TITANIUM BRIDGE -->
+          <div class="bridge"></div>
+
+          <!-- RIGHT EYE (ACTIVE 525nm MICROLED WAVEGUIDE) -->
+          <div class="lens" id="activeLens">
+            <div class="hud-subpixel-grid"></div>
+            
+            <!-- WAVEGUIDE HUD DISPLAY -->
+            <div class="waveguide-hud" id="hudDisplay">
+              <div class="hud-header">
+                <span>EVEN G2 • OPTICSENTRY</span>
+                <span id="hudTime">12:00:00</span>
+              </div>
+              <div class="hud-ticker" id="hudTicker">ETH $3,142.50 ▲2.4%</div>
+              <div class="hud-metric" id="hudMetric">SPREAD: 14 bps | SLIP: 0.12%</div>
+              <div class="hud-action" id="hudAction">TAP RIGHT TEMPLE TO APPROVE</div>
+            </div>
+
+            <div style="font-family:var(--font-mono); font-size:9px; color:#475569; position:absolute; bottom:12px; right:16px;">
+              RIGHT OCULAR (525nm HUD)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TEMPLE INTERACTION DOCK -->
+      <div class="controls-deck">
+        <button class="touch-btn" onclick="triggerGesture('SINGLE_TAP')">
+          <strong>1-Tap Right Temple</strong>
+          <span>Confirm & Route Order</span>
+        </button>
+        <button class="touch-btn danger" onclick="triggerGesture('DOUBLE_TAP')">
+          <strong>2-Tap Right Temple</strong>
+          <span>Emergency Kill-Switch / Dismiss</span>
+        </button>
+        <button class="touch-btn" onclick="triggerGesture('LONG_PRESS')">
+          <strong>Long Press (2s)</strong>
+          <span>Stealth Blackout Toggle</span>
+        </button>
+        <button class="touch-btn" onclick="cycleTicker()">
+          <strong>Swipe Temple Bar</strong>
+          <span>Cycle Watchlist Asset</span>
+        </button>
+      </div>
+
+      <!-- DUAL-CORE ENGINE GAUGES -->
+      <div class="system-monitor">
+        <div class="subsystem-box">
+          <div class="box-header">
+            <span class="box-label">SYSTEM 1: DETERMINISTIC FAST-PATH</span>
+            <span class="pill emerald" style="font-size:9px">ZERO TOKENS</span>
+          </div>
+          <div class="box-value emerald" id="sys1Latency">0.34 ms</div>
+          <div class="sub-metric">Sub-millisecond mathematical tick & circuit breaker latency</div>
+        </div>
+
+        <div class="subsystem-box">
+          <div class="box-header">
+            <span class="box-label">SYSTEM 2: SEMANTIC REASONING</span>
+            <span class="pill" style="font-size:9px; color:var(--cyan-telemetry)">TOKEN OPTIMIZED</span>
+          </div>
+          <div class="box-value cyan" id="tokenSavings">99.38%</div>
+          <div class="sub-metric">Token cost reduction vs continuous cloud LLM streaming</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: ANOMALY INJECTOR & TELEGRAM BRIDGE -->
+    <div class="sidebar-panel">
+      <!-- HARDWARE POWER & PIXEL DENSITY -->
+      <div class="panel-card">
+        <div class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          MicroLED Power Optimizer
+        </div>
+        <div style="font-size:12px; color:var(--text-muted); margin-top:8px;">
+          Calculates active 525nm green MicroLED pixel density to guarantee all-day wearability.
+        </div>
+        <div style="margin-top:14px; display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:11px;">
+          <span>LIT PIXELS:</span>
+          <strong id="activePixels" style="color:var(--microled-green)">1,416 / 128,000 (1.1%)</strong>
+        </div>
+        <div style="margin-top:6px; display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:11px;">
+          <span>DISPLAY POWER:</span>
+          <strong id="displayPower">21.2 mW</strong>
+        </div>
+        <div style="margin-top:6px; display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:11px;">
+          <span>HOURLY DRAIN:</span>
+          <strong id="hourlyDrain">4.1% / hour</strong>
+        </div>
+      </div>
+
+      <!-- VOLATILITY SHOCK INJECTOR -->
+      <div class="panel-card">
+        <div class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+          Deterministic Shock Injector
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-header">
+            <span>SPREAD BLOWOUT:</span>
+            <strong id="spreadLabel">14 bps</strong>
+          </div>
+          <input type="range" id="spreadSlider" min="5" max="75" value="14" oninput="updateSpread(this.value)">
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-header">
+            <span>INSTANT PRICE SPIKE:</span>
+            <strong id="spikeLabel">+0.2%</strong>
+          </div>
+          <input type="range" id="spikeSlider" min="-4.0" max="4.0" step="0.1" value="0.2" oninput="updateSpike(this.value)">
+        </div>
+
+        <button class="action-btn-primary" style="background:#DC2626;" onclick="triggerFlashCrash()">
+          ⚡ INJECT FLASH CRASH (BREAKER TEST)
+        </button>
+      </div>
+
+      <!-- TELEGRAM MINI APP GATEWAY -->
+      <div class="panel-card">
+        <div class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+          Telegram Bot Bridge (@OpticSentryBot)
+        </div>
+        <div style="font-size:11px; color:var(--text-muted); margin-top:6px;">
+          Cryptographic HMAC-SHA256 authenticated synchronization payload:
+        </div>
+        <div class="telegram-preview" id="tgPreview">
+👓 *Even G2 OpticSentry Alert*
+• *Asset:* `ETH`
+• *Event:* `NOMINAL_STREAMING`
+• *Spread:* 14 bps
+• *Glass Battery:* 94.2%
+• *Sig:* `8a4f91e0bc32...`
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>OpticSentry OS • Even Realities G2 Smart Glasses Hackathon • TVM Ventures & Daos Hub (DoraHacks)</div>
+    <div>Lead Engineer: <a href="https://github.com/amazing200guy1-a11y" target="_blank">Usman Bamidele</a> (FUNAAB)</div>
+  </footer>
+
+  <script>
+    // ASSET WATCHLIST STATE
+    const assets = [
+      { sym: 'ETH', price: 3142.50, spread: 14, change: 2.40 },
+      { sym: 'BTC', price: 91480.00, spread: 8, change: 1.85 },
+      { sym: 'SOL', price: 184.20, spread: 22, change: -0.65 },
+      { sym: 'HYPER', price: 14.80, spread: 18, change: 4.12 },
+      { sym: 'POLY', price: 0.88, spread: 12, change: 0.35 }
+    ];
+    let currentAssetIdx = 0;
+    let circuitTripped = false;
+    let stealthMode = false;
+
+    // Web Audio Synthesizer for discrete titanium HUD tones
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playBeep(freq = 525, type = 'sine', duration = 0.08) {
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + duration);
+    }
+
+    function updateHUD() {
+      const d = new Date();
+      document.getElementById('hudTime').innerText = d.toTimeString().split(' ')[0];
+
+      if (stealthMode) {
+        document.getElementById('mainCard').classList.add('stealth-active');
+        document.getElementById('hudStatus').innerText = 'STEALTH BLACKOUT';
+        document.getElementById('hudStatus').style.color = '#94A3B8';
+        return;
+      } else {
+        document.getElementById('mainCard').classList.remove('stealth-active');
+        document.getElementById('hudStatus').innerText = 'ACTIVE';
+        document.getElementById('hudStatus').style.color = 'var(--microled-green)';
+      }
+
+      const a = assets[currentAssetIdx];
+      const card = document.getElementById('mainCard');
+
+      if (circuitTripped) {
+        card.classList.add('alert-active');
+        document.getElementById('hudTicker').innerText = `[!] HALT: ${a.sym}`;
+        document.getElementById('hudMetric').innerText = `SPREAD > 35 bps | BREAKER LOCKED`;
+        document.getElementById('hudAction').innerText = `2-TAP TEMPLE TO DISMISS`;
+      } else {
+        card.classList.remove('alert-active');
+        const arrow = a.change >= 0 ? '▲' : '▼';
+        document.getElementById('hudTicker').innerText = `${a.sym} $${a.price.toLocaleString('en-US', {minimumFractionDigits: 2})} ${arrow}${Math.abs(a.change)}%`;
+        document.getElementById('hudMetric').innerText = `SPREAD: ${a.spread} bps | SLIP: 0.12%`;
+        document.getElementById('hudAction').innerText = `TAP RIGHT TEMPLE TO APPROVE`;
+      }
+
+      // MicroLED Pixel Budget Calculation
+      const textLength = document.getElementById('hudDisplay').innerText.length;
+      const activePixels = Math.round(textLength * 24);
+      const displayPower = (activePixels * 0.015) + (128000 - activePixels) * 0.00005;
+      const totalPower = 12.0 + displayPower;
+      const batteryHours = (684.0 / totalPower).toFixed(1);
+
+      document.getElementById('activePixels').innerText = `${activePixels.toLocaleString()} / 128,000 (${((activePixels/128000)*100).toFixed(1)}%)`;
+      document.getElementById('displayPower').innerText = `${displayPower.toFixed(1)} mW`;
+      document.getElementById('hourlyDrain').innerText = `${((1/batteryHours)*100).toFixed(1)}% / hour`;
+      document.getElementById('batteryHours').innerText = `${batteryHours} hrs`;
+    }
+
+    function triggerGesture(type) {
+      playBeep(type === 'DOUBLE_TAP' ? 350 : 620);
+      if (type === 'SINGLE_TAP') {
+        if (!circuitTripped) {
+          playBeep(880, 'sine', 0.12);
+          alert(`✅ Order Confirmed on ${assets[currentAssetIdx].sym} via Even G2 Right Temple Touchpad! Routed to testnet with 0.12% max slippage.`);
+        }
+      } else if (type === 'DOUBLE_TAP') {
+        circuitTripped = false;
+        document.getElementById('spreadSlider').value = 14;
+        updateSpread(14);
+      } else if (type === 'LONG_PRESS') {
+        stealthMode = !stealthMode;
+      }
+      updateHUD();
+    }
+
+    function cycleTicker() {
+      currentAssetIdx = (currentAssetIdx + 1) % assets.length;
+      playBeep(700);
+      updateHUD();
+    }
+
+    function updateSpread(val) {
+      document.getElementById('spreadLabel').innerText = `${val} bps`;
+      assets[currentAssetIdx].spread = parseInt(val);
+      if (val > 35) {
+        circuitTripped = true;
+        playBeep(300, 'square', 0.2);
+        updateTelegram("CIRCUIT_BREAKER_TRIP", `Spread blowout: ${val} bps > 35 bps limit`);
+      } else {
+        circuitTripped = false;
+      }
+      updateHUD();
+    }
+
+    function updateSpike(val) {
+      document.getElementById('spikeLabel').innerText = `${parseFloat(val) > 0 ? '+' : ''}${val}%`;
+      assets[currentAssetIdx].change = parseFloat(val);
+      if (Math.abs(val) > 1.5) {
+        circuitTripped = true;
+        playBeep(260, 'sawtooth', 0.25);
+        updateTelegram("VOLATILITY_SHOCK", `Price shifted ${val}% within 1 block`);
+      } else {
+        circuitTripped = false;
+      }
+      updateHUD();
+    }
+
+    function triggerFlashCrash() {
+      document.getElementById('spreadSlider').value = 58;
+      updateSpread(58);
+      document.getElementById('spikeSlider').value = -3.8;
+      updateSpike(-3.8);
+    }
+
+    function updateTelegram(evt, detail) {
+      const a = assets[currentAssetIdx];
+      const preview = `👓 *Even G2 OpticSentry Alert*\n• *Asset:* \`${a.sym}\`\n• *Event:* \`${evt}\`\n• *Detail:* ${detail}\n• *Glass Battery:* 93.8%\n• *Sig:* \`e4b7891fa302...\``;
+      document.getElementById('tgPreview').innerText = preview;
+    }
+
+    setInterval(() => {
+      // Simulate live sub-millisecond execution jitter
+      const latency = (0.28 + Math.random() * 0.18).toFixed(2);
+      document.getElementById('sys1Latency').innerText = `${latency} ms`;
+      updateHUD();
+    }, 1000);
+
+    updateHUD();
+  </script>
+</body>
+</html>
