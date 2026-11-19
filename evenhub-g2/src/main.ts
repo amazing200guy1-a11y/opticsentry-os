@@ -34,23 +34,23 @@ interface TelegramChannelItem {
 const telegramChannels: TelegramChannelItem[] = [
   {
     channel: '@DeFiAlphaDigest',
-    headline: 'ETH BREAKOUT $3,142.50',
-    digest: 'DIGEST: 12.4k ETH Inflow',
-    subtext: 'SENTIMENT: Bullish (+2.4%)',
+    headline: 'NEW MSG: DeFi Alpha Signal',
+    digest: 'DIGEST: Liquidity Pool Alert',
+    subtext: 'AI REPLY READY — 1-TAP ACK',
     priority: 'NORMAL'
   },
   {
     channel: '@WhaleAlertDesk',
-    headline: 'BTC WHALE $91,480.00',
-    digest: 'ALERT: 5,200 BTC to Vault',
-    subtext: 'PRIORITY: HIGH (Track 01)',
+    headline: 'ALERT: Phishing Link Flagged',
+    digest: 'FLAGGED: Fake Airdrop Link',
+    subtext: 'PRIORITY: HIGH — TAP TO MUTE',
     priority: 'HIGH'
   },
   {
     channel: '@TONEcosystemNews',
-    headline: 'TON NEWS $5.82 (+4.1%)',
-    digest: 'UPDATE: Mini App Gateway',
-    subtext: 'COMMUNITY: 94k Active Users',
+    headline: 'TON: Mini App Gateway Update',
+    digest: 'UPDATE: 94k Active Community',
+    subtext: 'SWIPE TO CYCLE CHANNELS',
     priority: 'NORMAL'
   }
 ]
