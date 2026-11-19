@@ -120,14 +120,15 @@ Even Realities G2 display power consumption is strictly proportional to active (
 - Base Glass System Draw (BLE radio, IMU, microcontroller): **12.0 mW**
 - Power per active 525nm MicroLED pixel @ 1000 nits: **0.015 mW**
 - Battery Capacity: **180 mAh @ 3.8V = 684 mWh**
+- **Official G2 Display Resolution: 576 × 288 = 165,888 pixels (monochrome)**
 
 | Metric | Heavy Conventional GUI | OpticSentry Micro-Telegraphic HUD |
 | :--- | :--- | :--- |
-| **Active Lit Pixels** | 38,000 / 128,000 (29.7%) | **1,416 / 128,000 (1.1%)** |
-| **Display Power Draw** | 570.0 mW | **21.2 mW** |
-| **Total Power Consumption** | 582.0 mW | **33.2 mW** |
-| **Continuous Battery Runtime** | **1.17 Hours** (Dead fast) | **20.6 Hours** (All-Day Wearable) |
-| **Battery Life Improvement** | Baseline | **17.6x Longer Runtime** |
+| **Active Lit Pixels** | 49,000 / 165,888 (29.5%) | **1,730 / 165,888 (1.0%)** |
+| **Display Power Draw** | 735.0 mW | **25.9 mW** |
+| **Total Power Consumption** | 747.0 mW | **37.9 mW** |
+| **Continuous Battery Runtime** | **0.92 Hours** (Dead fast) | **18.0 Hours** (All-Day Wearable) |
+| **Battery Life Improvement** | Baseline | **19.6x Longer Runtime** |
 
 ---
 
@@ -168,12 +169,44 @@ All 15 formal tests verify:
 
 ---
 
-## 6. Track Compliance Declaration
+## 6. Everyday Moment — Why This Exists on G2
+
+The real problem OpticSentry solves is not complex trading. It is the **anxiety of walking away from your screen.**
+
+A person holding a crypto position at work, in a meeting, or on a walk cannot constantly check their phone. OpticSentry gives them one line of truth in the corner of their vision:
+
+> *"ETH ▲2.4% | Circuit OK"* — glanceable in 0.3 seconds, no hands, no unlock, no notification swipe.
+
+When something actually goes wrong — a spread blowout, a flash volatility spike — Telegram delivers the alert to their phone AND the G2 glass simultaneously. They tap their right temple once to acknowledge. Done. That is the everyday moment.
+
+**Who it is for:** Anyone holding a crypto position who needs ambient awareness without being chained to a screen.  
+**How it works:** System 1 runs locally on the glass pipeline (zero tokens, 0.34ms). System 2 wakes only on anomalies and fires a Telegram alert. Temple-tap closes the loop.
+
+---
+
+## 7. API Feature Requests (5 Missing Capabilities — Track 01: Telegram)
+
+Per submission rules, here are 5 things the Telegram Bot/Mini App API was missing that would have made this integration significantly better:
+
+1. **Persistent Glass-to-Chat context thread:** Telegram has no native way to associate a Bot message thread with a specific wearable device session. We had to implement our own HMAC session tokens. A device-scoped webhook namespace would remove this complexity entirely.
+
+2. **Low-latency push to Mini App without user interaction:** Telegram Mini Apps can only receive data when the user has the Mini App open. There is no server-push/WebSocket primitive that updates the Mini App in the background while the user is elsewhere in Telegram. This forced us to use polling, which burns battery.
+
+3. **Telegram Bot ring/haptic command relay:** There is no Telegram Bot API endpoint to trigger the Even G2 ring or temple haptics directly. All tactile feedback must be initiated from the glass side. A `sendHaptic` method in the Bot API would enable true bidirectional physical feedback.
+
+4. **Message TTL / auto-expiry on glass HUD:** Telegram messages persist indefinitely in the chat. For heads-up display use, we need ephemeral messages that auto-delete after N seconds to keep the glass display clean. The existing `delete_message` requires a separate timed API call rather than a native TTL field.
+
+5. **Structured alert schema (not free-form text):** Telegram Bot messages are plain text or basic markdown. For smart glasses, structured JSON payloads with explicit fields (symbol, price, severity, action) would allow the glass renderer to format the HUD display deterministically without parsing free-form strings.
+
+---
+
+## 8. Track Compliance Declaration
 
 **Submitted Track:** Track 01 — Messaging & News  
 **Allowlisted App Used:** Telegram (Bot + Mini App — `@OpticSentryBot`)  
 **Other apps used:** None. Market data is consumed as anonymous read-only public feeds only.  
 **Funds held:** None. Testnet/paper trading only.  
-**Financial advice given:** None.
+**Financial advice given:** None.  
+**Secrets committed:** None. HMAC key loaded from environment variable `OPTICSENTRY_HMAC_SECRET` at runtime only.
 
-This project complies fully with the Even Realities Hackathon track rules. Only Telegram (a Track 01 allowlisted app) is used as the primary integration. Read-only market data feeds power the Telegram alert content but are not themselves the product — the product is the Telegram + G2 smart glasses pipeline.
+This project complies fully with the Even Realities Hackathon track rules. Only Telegram (a Track 01 allowlisted app) is used as the primary integration. Read-only market data feeds power the Telegram alert content but are not themselves the product — the product is the Telegram + G2 smart glasses ambient awareness pipeline.

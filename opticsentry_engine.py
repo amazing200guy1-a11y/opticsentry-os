@@ -24,9 +24,9 @@ from typing import Dict, List, Tuple, Optional, Any
 # 1. PHYSICAL HARDWARE SPECIFICATION (Even Realities G2 Smart Glasses)
 # =====================================================================
 
-G2_DISPLAY_WIDTH = 640        # Horizontal resolution (pixels per eye)
-G2_DISPLAY_HEIGHT = 200       # Vertical resolution (pixels per eye)
-G2_TOTAL_PIXELS = G2_DISPLAY_WIDTH * G2_DISPLAY_HEIGHT  # 128,000 pixels
+G2_DISPLAY_WIDTH = 576        # Horizontal resolution (pixels per eye) — official Even G2 spec
+G2_DISPLAY_HEIGHT = 288       # Vertical resolution (pixels per eye) — official Even G2 spec
+G2_TOTAL_PIXELS = G2_DISPLAY_WIDTH * G2_DISPLAY_HEIGHT  # 165,888 pixels (576 × 288 monochrome)
 
 # MicroLED 525nm (Monochrome Emerald Green) Optical Waveguide Power Constants
 P_BASE_SYSTEM_MW = 12.0       # Base glass draw: BLE radio + IMU + MCU (mW)
@@ -378,7 +378,11 @@ class TelegramHUDBridge:
     - Telegram -> Glass HUD: Sends watchlist updates and priority whale notifications.
     """
 
-    SECRET_KEY = b"opticsentry_hmac_secret_even_g2"
+    # SECURITY: Never commit real secrets. Load from environment variable at runtime.
+    # Set env var: OPTICSENTRY_HMAC_SECRET=<your_secret> before deploying.
+    # This placeholder is used only for local unit testing (no real Telegram token attached).
+    import os as _os
+    SECRET_KEY = _os.environ.get("OPTICSENTRY_HMAC_SECRET", "demo_local_test_key_not_real").encode("utf-8")
 
     @classmethod
     def sign_payload(cls, data: Dict[str, Any]) -> str:
