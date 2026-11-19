@@ -1,6 +1,8 @@
 # OpticSentry OS: Autonomous Heads-Up Risk Sentinel & MicroLED Waveguide Terminal
 
 [![Heads Up: Even Realities](https://img.shields.io/badge/Hackathon-Even%20Realities%20x%20TVM%20Ventures-00F5FF?style=for-the-badge&logo=dorahacks)](https://dorahacks.io)
+[![Even Hub SDK](https://img.shields.io/badge/Even%20Hub%20SDK-0.0.16%20(Official)-00FF66?style=for-the-badge&logo=typescript)](./evenhub-g2)
+[![G2 Packaged App](https://img.shields.io/badge/G2%20Package-opticsentry.ehpk-00C2FF?style=for-the-badge)](./opticsentry.ehpk)
 [![Track](https://img.shields.io/badge/Track-01%3A%20Messaging%20%26%20News%20(Telegram)-00C2FF?style=for-the-badge)](https://dorahacks.io)
 [![Formal Verification](https://img.shields.io/badge/Tests-15%2F15%20PASSING%20(0.025s)-10B981?style=for-the-badge)](./test_opticsentry.py)
 [![Live Cockpit](https://img.shields.io/badge/Live%20Cockpit-GitHub%20Pages-6366F1?style=for-the-badge)](https://amazing200guy1-a11y.github.io/opticsentry-os/)
@@ -169,7 +171,37 @@ All 15 formal tests verify:
 
 ---
 
-## 6. Everyday Moment — Why This Exists on G2
+## 6. Official Even Hub G2 SDK & Desktop Simulator
+
+OpticSentry OS is built directly on the official `@evenrealities/even_hub_sdk` with full support for the desktop simulator and official packaging:
+
+### Quickstart: Run in the Official Even Hub Simulator
+```bash
+# 1. Install official CLI & Simulator globally (if not already installed)
+npm install -g @evenrealities/evenhub-cli @evenrealities/evenhub-simulator
+
+# 2. Enter the G2 SDK directory and install dependencies
+cd evenhub-g2
+npm install
+
+# 3. Launch Vite dev server + Even Hub Simulator with MicroLED phosphor glow
+npm run dev
+# In another terminal:
+npm run simulate
+```
+
+### Build & Package Official G2 Binary (.ehpk)
+Per hackathon guidelines, OpticSentry includes a pre-packaged `.ehpk` ready for physical G2 installation:
+```bash
+cd evenhub-g2
+npm run pack
+# Stamped: opticsentry.ehpk (33,860 bytes, compatible with Even Hub v2.2.10+)
+```
+The resulting `opticsentry.ehpk` is available directly in the repository root.
+
+---
+
+## 7. Everyday Moment — Why This Exists on G2
 
 The real problem OpticSentry solves is not complex trading. It is the **anxiety of walking away from your screen.**
 
@@ -184,7 +216,7 @@ When something actually goes wrong — a spread blowout, a flash volatility spik
 
 ---
 
-## 7. API Feature Requests (5 Missing Capabilities — Track 01: Telegram)
+## 8. API Feature Requests (5 Missing Capabilities — Track 01: Telegram)
 
 Per submission rules, here are 5 things the Telegram Bot/Mini App API was missing that would have made this integration significantly better:
 
@@ -200,7 +232,7 @@ Per submission rules, here are 5 things the Telegram Bot/Mini App API was missin
 
 ---
 
-## 8. Track Compliance Declaration
+## 9. Track Compliance Declaration
 
 **Submitted Track:** Track 01 — Messaging & News  
 **Allowlisted App Used:** Telegram (Bot + Mini App — `@OpticSentryBot`)  

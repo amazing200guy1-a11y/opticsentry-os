@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>OpticSentry OS — Even Realities G2 Simulator Terminal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #03060B;
+      --ti-card: #0E1420;
+      --ti-card-border: rgba(210, 225, 245, 0.12);
+      --text-pure: #F8FAFC;
+      --text-dim: #94A3B8;
+      --emerald: #00FF66;
+      --emerald-glow: rgba(0, 255, 102, 0.35);
+      --rose: #F43F5E;
+      --cyan: #00F0FF;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-ui: 'Outfit', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text-pure);
+      font-family: var(--font-ui);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 960px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--ti-card-border);
+    }
+    .header h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .badge {
+      background: rgba(0, 240, 255, 0.1);
+      color: var(--cyan);
+      border: 1px solid rgba(0, 240, 255, 0.25);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      font-weight: 600;
+    }
+
+    /* G2 Waveguide Mirror (576 x 288 native G2 resolution) */
+    .g2-mirror-wrapper {
+      background: #020408;
+      border: 2px solid var(--ti-card-border);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    }
+    .mirror-label {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      font-family: var(--font-mono);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .g2-viewport {
+      width: 576px;
+      height: 288px;
+      background: #000000;
+      border: 1px solid #1a2a1a;
+      border-radius: 6px;
+      box-shadow: inset 0 0 20px rgba(0, 255, 102, 0.08), 0 0 25px var(--emerald-glow);
+      padding: 24px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+    .g2-hud-text {
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: var(--emerald);
+      text-shadow: 0 0 8px var(--emerald-glow);
+      white-space: pre-line;
+      letter-spacing: 0.02em;
+    }
+
+    /* Controls & Telemetry Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--ti-card);
+      border: 1px solid var(--ti-card-border);
+      border-radius: 10px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .card h2 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-dim);
+      font-family: var(--font-mono);
+    }
+
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    button {
+      background: #172033;
+      color: var(--text-pure);
+      border: 1px solid var(--ti-card-border);
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    button:hover {
+      background: #22304d;
+      border-color: rgba(210, 225, 245, 0.3);
+    }
+    button.danger {
+      background: rgba(244, 63, 94, 0.12);
+      border-color: rgba(244, 63, 94, 0.35);
+      color: #FFA4B2;
+    }
+    button.danger:hover {
+      background: rgba(244, 63, 94, 0.25);
+    }
+
+    .status-pill {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      display: inline-block;
+      width: fit-content;
+      font-weight: 700;
+    }
+    .status-pill.nominal { background: rgba(0, 255, 102, 0.12); color: var(--emerald); border: 1px solid rgba(0, 255, 102, 0.3); }
+    .status-pill.circuit_tripped { background: rgba(244, 63, 94, 0.2); color: var(--rose); border: 1px solid rgba(244, 63, 94, 0.4); }
+    .status-pill.acknowledged { background: rgba(0, 240, 255, 0.15); color: var(--cyan); border: 1px solid rgba(0, 240, 255, 0.3); }
+    .status-pill.blackout { background: #111; color: #666; border: 1px solid #333; }
+
+    .telemetry-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      padding: 4px 0;
+      border-bottom: 1px dashed rgba(255,255,255,0.06);
+    }
+    .telemetry-row span:first-child { color: var(--text-dim); }
+    .telemetry-row span:last-child { font-family: var(--font-mono); font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>OpticSentry OS · Even G2 Waveguide Sentinel</h1>
+      <span class="badge">Track 01: Messaging (Telegram)</span>
+    </div>
+
+    <!-- 576 x 288 Native G2 Waveguide Canvas -->
+    <div class="g2-mirror-wrapper">
+      <div class="mirror-label">Even Realities G2 Optical Waveguide Mirror (576 × 288 Monochrome 525nm MicroLED)</div>
+      <div class="g2-viewport">
+        <div id="g2-hud-text" class="g2-hud-text">Initializing OpticSentry G2 Bridge...</div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- Temple Touch & Gesture Controls -->
+      <div class="card">
+        <h2>Physical Temple Gesture Emulation</h2>
+        <div class="btn-group">
+          <button id="btn-tap">1-Tap Right Temple (ACK / Route)</button>
+          <button id="btn-double-tap">2-Tap Temple (Reset / Stand Down)</button>
+          <button id="btn-swipe-fwd">Swipe Forward (Next Asset)</button>
+          <button id="btn-swipe-back">Swipe Back (Prev Asset)</button>
+          <button id="btn-shock" class="danger">⚠ Simulate Spread Blowout</button>
+        </div>
+      </div>
+
+      <!-- Live Telemetry & Bridge Status -->
+      <div class="card">
+        <h2>Telemetry & Telegram Bridge</h2>
+        <div class="telemetry-row">
+          <span>Sentinel Shield State</span>
+          <span id="status-badge" class="status-pill nominal">NOMINAL</span>
+        </div>
+        <div class="telemetry-row">
+          <span>Tracked Asset</span>
+          <span id="current-ticker">ETH $3,142.50</span>
+        </div>
+        <div class="telemetry-row">
+          <span>Orderbook Spread</span>
+          <span id="current-spread">4.2 bps</span>
+        </div>
+        <div class="telemetry-row">
+          <span>Telegram Integration</span>
+          <span style="color: var(--cyan);">@OpticSentryBot (Active)</span>
+        </div>
+        <div class="telemetry-row">
+          <span>HMAC Auth Signature</span>
+          <span id="last-hmac" style="font-size: 0.7rem; color: var(--text-dim);">8f4c2e1b...9a0d3f7e</span>
+        </div>
+        <div class="telemetry-row">
+          <span>MicroLED Active Power</span>
+          <span style="color: var(--emerald);">25.9 mW · 18.0h Battery</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
