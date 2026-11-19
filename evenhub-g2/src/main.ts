@@ -36,23 +36,49 @@ let bridgeInstance: any = null
 
 function formatG2DisplayContent(): string {
   if (shieldState === 'BLACKOUT') {
-    return 'OPTICSENTRY · STEALTH BLACKOUT\n[DISPLAY DARK • 0.0 mW]\nTap right temple to restore.'
+    return [
+      '┌── OPTICSENTRY OS ──────── [BLACKOUT] ──┐',
+      '│                                        │',
+      '│       [STEALTH SHIELD ENGAGED]         │',
+      '│      DISPLAY POWER DRAW: 0.00 mW       │',
+      '│                                        │',
+      '└── [1-TAP OR SWIPE TO RESTORE HUD] ────┘'
+    ].join('\n')
   }
 
   const asset = WATCHLIST[assetIndex]
   const arrow = asset.change24h >= 0 ? '▲' : '▼'
   const sign = asset.change24h >= 0 ? '+' : ''
+  const priceStr = `$${asset.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
 
   if (shieldState === 'CIRCUIT_TRIPPED') {
-    return `⚠ OPTICSENTRY RISK ALERT ⚠\n${asset.symbol} $${asset.price.toLocaleString()} ${arrow}\n${breakerReason || 'SPREAD BLOWOUT'}\nTelegram @OpticSentryBot Alerted\n[1-TAP: ACK]  [2-TAP: RESET]`
+    return [
+      '╔══ ⚠ CIRCUIT BREAKER TRIPPED ══════════╗',
+      `║  ${(asset.symbol + ' / USD').padEnd(14)} ${priceStr.padStart(11)} ${arrow}  ║`,
+      `║  ${(breakerReason || 'SPREAD BLOWOUT (>15.0 bps)').padEnd(36)}  ║`,
+      '║  CRITICAL ALERT ➔ TELEGRAM BOT        ║',
+      '╚══ [1-TAP: ACK] ════ [2-TAP: RESET] ═══╝'
+    ].join('\n')
   }
 
   if (shieldState === 'ACKNOWLEDGED') {
-    return `OPTICSENTRY · ACKNOWLEDGED\n${asset.symbol} $${asset.price.toLocaleString()} ${sign}${asset.change24h}%\nTestnet Order Protected\nHMAC: ${lastHmacSignature.slice(0, 12)}...\n[1-TAP: RE-ARM] [SWIPE: NEXT]`
+    return [
+      '┌── OPTICSENTRY OS ──────── [VERIFIED] ──┐',
+      `│  ${(asset.symbol + ' / USD').padEnd(14)} ${priceStr.padStart(11)} ${arrow}  │`,
+      `│  SLIPPAGE SHIELD LOCKED: ${asset.spreadBps.toFixed(1)} bps         │`,
+      `│  HMAC SIG: ${lastHmacSignature.slice(0, 16)}... │`,
+      '└── [1-TAP: RE-ARM] ── [SWIPE: NEXT] ───┘'
+    ].join('\n')
   }
 
-  // NOMINAL
-  return `OPTICSENTRY OS · G2 ACTIVE\n${asset.symbol} $${asset.price.toLocaleString()} ${arrow} ${sign}${asset.change24h}%\nSPREAD: ${asset.spreadBps} bps | BAT: 18.0h\n@OpticSentryBot [SYNCED]\n[1-TAP: ACK] [SWIPE: ASSET]`
+  // NOMINAL LUXURY HUD
+  return [
+    '┌── OPTICSENTRY OS ──────── [NOMINAL] ──┐',
+    `│  ${(asset.symbol + ' / USD').padEnd(14)} ${priceStr.padStart(11)} ${arrow} ${sign}${asset.change24h}% │`,
+    `│  SPREAD: ${asset.spreadBps.toFixed(1)} bps   │  BATTERY: 18.0h  │`,
+    '│  TELEGRAM: @OpticSentryBot [SYNCED]   │',
+    '└── [1-TAP: ACK] ───── [SWIPE: ASSET] ──┘'
+  ].join('\n')
 }
 
 function updateLocalCompanionUI() {
