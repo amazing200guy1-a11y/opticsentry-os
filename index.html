@@ -9,63 +9,52 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     /* ══════════════════════════════════════════════════════════════
-       OPTICSENTRY OS — SCULPTED GUNMETAL & TITANIUM AEROSPACE COCKPIT
+       OPTICSENTRY OS — DEEP BRUSHED TITANIUM & SCULPTED GUNMETAL
        Audemars Piguet / Pagani / Lockheed Skunkworks Standard
        Heads Up: Even Realities Hackathon (TVM Ventures x Daos Hub)
        ══════════════════════════════════════════════════════════════ */
 
     :root {
-      --bg: #04070D;
-      --bg-secondary: #080C14;
+      --bg: #03060B;
+      --bg-surface: #070B13;
 
-      /* Sculpted Gunmetal Titanium Stack */
-      --card-top: #232C3B;
-      --card-mid: #171E2A;
-      --card-base: #0F131C;
-      --bg-tray: #121824;
-      --bg-tray-hover: #161D2B;
+      /* Sculpted Titanium Gradients */
+      --ti-top: #1B2332;
+      --ti-mid: #121926;
+      --ti-base: #0B0F18;
+      --ti-tray: #0E1420;
+      --ti-tray-hover: #151D2C;
 
-      /* Metallic Hairlines & Bevels */
-      --border: rgba(200, 220, 240, 0.12);
-      --border-chamfer: rgba(200, 220, 240, 0.18);
-      --border-hover: rgba(200, 220, 240, 0.32);
-      --border-accent: rgba(0, 240, 255, 0.35);
-      --inset: rgba(200, 220, 240, 0.14);
-      --shadow: 0 16px 45px rgba(0, 0, 0, 0.75);
+      /* Hairlines & Bevel Highlights */
+      --hairline: rgba(210, 225, 245, 0.10);
+      --hairline-chamfer: rgba(210, 225, 245, 0.18);
+      --hairline-hover: rgba(210, 225, 245, 0.30);
+      --bevel-inset: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      --shadow-chassis: 0 20px 50px rgba(0, 0, 0, 0.85);
 
-      /* Titanium Values */
-      --text: #F1F5F9;
-      --text-dim: #94A3B8;
-      --text-slate: #8A98A8;
-      --text-muted: #64748B;
-      --platinum: #E2E8F0;
-      --platinum-bright: #F8FAFC;
-      --steel: #475569;
+      /* Typography & Monochromatic Precision */
+      --text-pure: #F8FAFC;
+      --text-platinum: #E2E8F0;
+      --text-titanium: #94A3B8;
+      --text-steel: #64748B;
+      --text-dark: #334155;
 
-      /* Cold Aerospace Ice, Cyan & 525nm MicroLED Emerald */
-      --ice: #7DD3FC;
-      --cyan: #00F0FF;
-      --cyan-dim: rgba(0, 240, 255, 0.12);
-      --microled-green: #00FF66;
-      --microled-glow: rgba(0, 255, 102, 0.45);
-      --microled-dim: rgba(0, 255, 102, 0.12);
-      --alert-crimson: #E11D48;
-      --alert-glow: rgba(225, 29, 72, 0.5);
-      --amber: #F59E0B;
-
-      /* Recessed Pill Badges */
-      --pill-bg: #1E2838;
-      --pill-border: rgba(200, 220, 240, 0.20);
-      --pill-text: #D8E8F8;
+      /* Functional High-Tech Accents (Zero Toy Colors) */
+      --cyan-precision: #00F0FF;
+      --cyan-subtle: rgba(0, 240, 255, 0.12);
+      --microled-525: #00FF66;
+      --microled-glow: rgba(0, 255, 102, 0.40);
+      --microled-dim: rgba(0, 255, 102, 0.10);
+      --alert-halt: #E11D48;
+      --alert-glow: rgba(225, 29, 72, 0.45);
 
       --font-mono: 'JetBrains Mono', monospace;
-      --font-ui: 'Outfit', sans-serif;
+      --font-ui: 'Outfit', -apple-system, sans-serif;
 
       --radius-sm: 6px;
       --radius-md: 10px;
       --radius-lg: 14px;
-      --radius-xl: 18px;
-      --transition: 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      --transition: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     *, *::before, *::after {
@@ -76,7 +65,7 @@
 
     body {
       background: var(--bg);
-      color: var(--text);
+      color: var(--text-platinum);
       font-family: var(--font-ui);
       min-height: 100vh;
       line-height: 1.5;
@@ -84,18 +73,17 @@
       overflow-x: hidden;
     }
 
-    /* Ambient Titanium Sub-mesh Grid */
+    /* Ambient Titanium Wireframe Substrate */
     body::before {
       content: "";
       position: fixed;
       inset: 0;
       background:
-        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(0, 240, 255, 0.05), transparent 70%),
-        radial-gradient(circle at 12% 20%, rgba(0, 255, 102, 0.04), transparent 45%),
-        radial-gradient(circle at 88% 70%, rgba(125, 211, 252, 0.03), transparent 50%),
-        linear-gradient(rgba(200, 220, 240, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(200, 220, 240, 0.02) 1px, transparent 1px);
-      background-size: 100% 100%, 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+        radial-gradient(ellipse 90% 60% at 50% -10%, rgba(0, 240, 255, 0.04), transparent 70%),
+        radial-gradient(circle at 10% 25%, rgba(0, 255, 102, 0.03), transparent 45%),
+        linear-gradient(rgba(210, 225, 245, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(210, 225, 245, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 48px 48px, 48px 48px;
       pointer-events: none;
       z-index: 0;
     }
@@ -105,16 +93,16 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(8, 12, 20, 0.88);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+      background: rgba(7, 11, 19, 0.90);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--hairline);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
     }
 
     .header-inner {
       max-width: 1440px;
       margin: 0 auto;
-      padding: 12px 24px;
+      padding: 12px 28px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -129,39 +117,39 @@
     }
 
     .emblem-icon {
-      width: 38px;
-      height: 38px;
+      width: 40px;
+      height: 40px;
       border-radius: var(--radius-sm);
-      border: 1px solid var(--border-chamfer);
-      background: linear-gradient(135deg, #1E2838 0%, #0D121D 100%);
+      border: 1px solid var(--hairline-chamfer);
+      background: linear-gradient(135deg, var(--ti-top) 0%, var(--ti-base) 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: inset 0 1px 0 var(--inset);
+      box-shadow: var(--bevel-inset);
     }
 
     .emblem-icon svg {
       width: 22px;
       height: 22px;
-      stroke: var(--cyan);
+      stroke: var(--cyan-precision);
     }
 
     .brand-title {
-      font-size: 18px;
+      font-size: 19px;
       font-weight: 800;
-      letter-spacing: -0.3px;
-      color: var(--platinum-bright);
+      letter-spacing: -0.5px;
+      color: var(--text-pure);
     }
 
     .brand-title span {
-      color: var(--microled-green);
+      color: var(--microled-525);
       text-shadow: 0 0 10px var(--microled-glow);
     }
 
     .badge-sub {
       font-family: var(--font-mono);
       font-size: 10px;
-      color: var(--text-muted);
+      color: var(--text-steel);
       letter-spacing: 0.8px;
       text-transform: uppercase;
     }
@@ -174,25 +162,25 @@
     }
 
     .status-pill {
-      background: var(--pill-bg);
-      border: 1px solid var(--pill-border);
+      background: var(--ti-tray);
+      border: 1px solid var(--hairline);
       border-radius: var(--radius-sm);
-      padding: 5px 11px;
+      padding: 6px 12px;
       display: flex;
       align-items: center;
-      gap: 7px;
+      gap: 8px;
       font-family: var(--font-mono);
       font-size: 11px;
-      color: var(--pill-text);
-      box-shadow: inset 0 1px 0 var(--inset);
+      color: var(--text-platinum);
+      box-shadow: var(--bevel-inset);
     }
 
     .status-dot {
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: var(--microled-green);
-      box-shadow: 0 0 8px var(--microled-green);
+      background: var(--microled-525);
+      box-shadow: 0 0 8px var(--microled-525);
       animation: pulse-dot 2s infinite;
     }
 
@@ -204,52 +192,53 @@
     /* ═══════════════ NAVIGATION TABS (CHISELED TITANIUM) ═══════════════ */
     .tab-bar {
       display: flex;
-      gap: 6px;
-      padding: 8px 24px;
+      gap: 8px;
+      padding: 8px 28px;
       max-width: 1440px;
       margin: 0 auto;
-      border-bottom: 1px solid rgba(200, 220, 240, 0.08);
-      overflow-x: auto;
-      scrollbar-width: none;
+      border-bottom: 1px solid rgba(210, 225, 245, 0.06);
     }
-
-    .tab-bar::-webkit-scrollbar { display: none; }
 
     .tab-btn {
       background: transparent;
       border: 1px solid transparent;
-      color: var(--text-slate);
+      color: var(--text-steel);
       font-family: var(--font-mono);
       font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      padding: 8px 16px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      padding: 9px 18px;
       border-radius: var(--radius-sm);
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 8px;
-      white-space: nowrap;
+      gap: 9px;
       transition: all var(--transition);
     }
 
+    .tab-btn svg {
+      width: 15px;
+      height: 15px;
+      stroke: currentColor;
+    }
+
     .tab-btn:hover {
-      color: var(--platinum);
+      color: var(--text-platinum);
       background: rgba(255, 255, 255, 0.03);
     }
 
     .tab-btn.active {
-      color: var(--cyan);
-      background: linear-gradient(180deg, var(--card-top), var(--card-mid));
-      border: 1px solid var(--border-chamfer);
-      box-shadow: inset 0 1px 0 var(--inset), 0 2px 8px rgba(0, 0, 0, 0.4);
+      color: var(--cyan-precision);
+      background: linear-gradient(180deg, var(--ti-top), var(--ti-mid));
+      border: 1px solid var(--hairline-chamfer);
+      box-shadow: var(--bevel-inset), 0 2px 10px rgba(0, 0, 0, 0.5);
     }
 
     /* ═══════════════ MAIN VIEWPORT CONTAINER ═══════════════ */
     main {
       max-width: 1440px;
       margin: 0 auto;
-      padding: 24px;
+      padding: 24px 28px;
       position: relative;
       z-index: 1;
     }
@@ -267,25 +256,24 @@
     }
 
     .stat-bin {
-      background: linear-gradient(180deg, var(--card-top) 0%, var(--card-mid) 40%, var(--card-base) 100%);
-      border: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--ti-top) 0%, var(--ti-mid) 40%, var(--ti-base) 100%);
+      border: 1px solid var(--hairline);
       border-radius: var(--radius-md);
       padding: 16px 20px;
       position: relative;
-      overflow: hidden;
-      box-shadow: var(--shadow), inset 0 1px 0 var(--inset);
+      box-shadow: var(--shadow-chassis), var(--bevel-inset);
       transition: border-color var(--transition);
     }
 
     .stat-bin:hover {
-      border-color: var(--border-hover);
+      border-color: var(--hairline-hover);
     }
 
     .stat-bin-label {
       font-family: var(--font-mono);
       font-size: 10px;
       font-weight: 700;
-      color: var(--text-muted);
+      color: var(--text-steel);
       letter-spacing: 1px;
       text-transform: uppercase;
       display: flex;
@@ -298,13 +286,13 @@
       font-family: var(--font-mono);
       font-size: 22px;
       font-weight: 800;
-      color: var(--platinum-bright);
+      color: var(--text-pure);
       letter-spacing: -0.5px;
     }
 
     .stat-bin-sub {
       font-size: 11px;
-      color: var(--text-slate);
+      color: var(--text-titanium);
       margin-top: 4px;
       display: flex;
       align-items: center;
@@ -314,7 +302,7 @@
     /* ═══════════════ TAB PANELS ═══════════════ */
     .tab-panel {
       display: none;
-      animation: panelIn 0.22s ease-out;
+      animation: panelIn 0.2s ease-out;
     }
 
     .tab-panel.active {
@@ -326,23 +314,23 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ═══════════════ ENCLAVE 01: WAVEGUIDE HUD ═══════════════ */
+    /* ═══════════════ ENCLAVE 01: WAVEGUIDE HUD & TELEGRAM ═══════════════ */
     .hud-stage {
       display: grid;
-      grid-template-columns: 1fr 380px;
-      gap: 20px;
+      grid-template-columns: 1fr 420px;
+      gap: 24px;
     }
 
-    @media (max-width: 1024px) {
+    @media (max-width: 1100px) {
       .hud-stage { grid-template-columns: 1fr; }
     }
 
-    .glasses-chassis-card {
-      background: linear-gradient(180deg, var(--card-top) 0%, var(--card-mid) 40%, var(--card-base) 100%);
-      border: 1px solid var(--border);
+    .chassis-card {
+      background: linear-gradient(180deg, var(--ti-top) 0%, var(--ti-mid) 40%, var(--ti-base) 100%);
+      border: 1px solid var(--hairline);
       border-radius: var(--radius-lg);
       padding: 24px;
-      box-shadow: var(--shadow), inset 0 1px 0 var(--inset);
+      box-shadow: var(--shadow-chassis), var(--bevel-inset);
       display: flex;
       flex-direction: column;
     }
@@ -352,7 +340,7 @@
       border-radius: var(--radius-md);
       position: relative;
       overflow: hidden;
-      border: 1px solid var(--border-chamfer);
+      border: 1px solid var(--hairline-chamfer);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -361,7 +349,7 @@
       transition: background-image 0.3s ease;
     }
 
-    /* Optical Lens Wireframe Rig */
+    /* Glasses Wireframe Rig */
     .rig-glasses-svg {
       width: 640px;
       height: 220px;
@@ -377,11 +365,11 @@
       width: 260px;
       height: 180px;
       border-radius: 90px 90px 70px 70px;
-      background: rgba(10, 16, 26, 0.45);
-      border: 3px solid #334155;
+      background: rgba(10, 15, 25, 0.45);
+      border: 3px solid #283548;
       box-shadow: 
-        inset 0 0 35px rgba(0, 0, 0, 0.85),
-        0 15px 35px rgba(0, 0, 0, 0.6);
+        inset 0 0 40px rgba(0, 0, 0, 0.9),
+        0 15px 35px rgba(0, 0, 0, 0.7);
       position: relative;
       overflow: hidden;
       display: flex;
@@ -397,7 +385,7 @@
       left: 20px;
       width: 70px;
       height: 260px;
-      background: linear-gradient(135deg, rgba(0, 240, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 50%, transparent 100%);
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.10) 0%, rgba(255, 255, 255, 0.03) 50%, transparent 100%);
       transform: rotate(25deg);
       pointer-events: none;
     }
@@ -405,9 +393,8 @@
     .titanium-bridge {
       width: 60px;
       height: 10px;
-      background: #334155;
+      background: #283548;
       border-radius: 5px;
-      position: relative;
     }
 
     /* 525nm Waveguide Floating HUD */
@@ -417,8 +404,8 @@
       right: 18px;
       width: 220px;
       font-family: var(--font-mono);
-      color: var(--microled-green);
-      text-shadow: 0 0 8px var(--microled-green), 0 0 16px var(--microled-glow);
+      color: var(--microled-525);
+      text-shadow: 0 0 8px var(--microled-525), 0 0 16px var(--microled-glow);
       font-size: 11px;
       line-height: 1.4;
       pointer-events: none;
@@ -466,8 +453,8 @@
 
     /* ALERT FLASH STATE */
     .hud-alert-active .waveguide-display {
-      color: var(--alert-crimson) !important;
-      text-shadow: 0 0 10px var(--alert-crimson), 0 0 20px var(--alert-glow) !important;
+      color: var(--alert-halt) !important;
+      text-shadow: 0 0 10px var(--alert-halt), 0 0 20px var(--alert-glow) !important;
     }
 
     .hud-alert-active .hud-title-bar {
@@ -493,11 +480,11 @@
     }
 
     .temple-action-btn {
-      background: var(--bg-tray);
-      border: 1px solid var(--border);
+      background: var(--ti-tray);
+      border: 1px solid var(--hairline);
       border-radius: var(--radius-sm);
       padding: 12px 14px;
-      color: var(--text);
+      color: var(--text-platinum);
       font-family: var(--font-mono);
       font-size: 11px;
       cursor: pointer;
@@ -505,91 +492,201 @@
       flex-direction: column;
       gap: 4px;
       text-align: left;
-      box-shadow: inset 0 1px 0 var(--inset);
+      box-shadow: var(--bevel-inset);
       transition: all var(--transition);
     }
 
     .temple-action-btn:hover {
-      background: var(--bg-tray-hover);
-      border-color: var(--border-hover);
+      background: var(--ti-tray-hover);
+      border-color: var(--hairline-hover);
       transform: translateY(-1px);
     }
 
     .temple-action-btn strong {
       font-size: 12px;
-      color: var(--cyan);
+      color: var(--cyan-precision);
     }
 
     .temple-action-btn.danger strong {
-      color: var(--alert-crimson);
+      color: var(--alert-halt);
     }
 
-    /* SCENERY SWITCHER PILLS */
+    /* SCENERY SWITCHER PILLS WITH VECTOR SVGS */
     .scenery-pills-bar {
       display: flex;
-      gap: 8px;
-      margin-top: 14px;
+      gap: 6px;
       align-items: center;
     }
 
     .scenery-btn {
-      background: var(--bg-tray);
-      border: 1px solid var(--border);
-      color: var(--text-slate);
+      background: var(--ti-tray);
+      border: 1px solid var(--hairline);
+      color: var(--text-titanium);
       font-family: var(--font-mono);
       font-size: 10px;
       font-weight: 600;
-      padding: 4px 10px;
+      padding: 5px 10px;
       border-radius: var(--radius-sm);
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
       transition: all var(--transition);
     }
 
+    .scenery-btn svg {
+      width: 12px;
+      height: 12px;
+      stroke: currentColor;
+    }
+
     .scenery-btn.active, .scenery-btn:hover {
-      color: var(--cyan);
-      border-color: var(--cyan);
-      background: var(--cyan-dim);
+      color: var(--cyan-precision);
+      border-color: var(--cyan-precision);
+      background: var(--cyan-subtle);
     }
 
-    /* ═══════════════ ENCLAVE 02: SVG SHIELD FIELD CENTERPIECE ═══════════════ */
-    .shield-field-enclave {
-      background: linear-gradient(180deg, var(--card-top) 0%, var(--card-mid) 40%, var(--card-base) 100%);
-      border: 1px solid var(--border);
+    /* RIGHT: FUNCTIONAL TELEGRAM BOT TERMINAL */
+    .telegram-terminal-card {
+      background: linear-gradient(180deg, var(--ti-top) 0%, var(--ti-mid) 40%, var(--ti-base) 100%);
+      border: 1px solid var(--hairline);
       border-radius: var(--radius-lg);
-      padding: 24px;
-      box-shadow: var(--shadow), inset 0 1px 0 var(--inset);
-      margin-bottom: 24px;
+      padding: 22px;
+      box-shadow: var(--shadow-chassis), var(--bevel-inset);
+      display: flex;
+      flex-direction: column;
     }
 
-    .enclave-title-row {
+    .tg-chat-feed {
+      background: #060A13;
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-sm);
+      height: 320px;
+      overflow-y: auto;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      scrollbar-width: thin;
+      scrollbar-color: #1E293B transparent;
+    }
+
+    .tg-msg {
+      background: #0D1422;
+      border: 1px solid #1E2B40;
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      line-height: 1.5;
+      color: #93C5FD;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+
+    .tg-msg-header {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
+      color: var(--text-steel);
+      font-size: 9.5px;
+      margin-bottom: 4px;
+      border-bottom: 1px dashed rgba(147, 197, 253, 0.2);
+      padding-bottom: 3px;
     }
 
-    .enclave-title {
-      font-size: 15px;
-      font-weight: 800;
-      letter-spacing: 0.3px;
-      color: var(--platinum-bright);
+    .tg-quick-actions {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .tg-action-btn {
+      background: var(--ti-tray);
+      border: 1px solid var(--hairline);
+      color: var(--text-platinum);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 8px 6px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 10px;
+      justify-content: center;
+      gap: 5px;
+      transition: all var(--transition);
+    }
+
+    .tg-action-btn svg {
+      width: 12px;
+      height: 12px;
+      stroke: currentColor;
+    }
+
+    .tg-action-btn:hover {
+      background: var(--ti-tray-hover);
+      border-color: var(--cyan-precision);
+      color: var(--cyan-precision);
+    }
+
+    .tg-input-bar {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .tg-input-field {
+      flex: 1;
+      background: #060A13;
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-pure);
+      outline: none;
+    }
+
+    .tg-input-field:focus {
+      border-color: var(--cyan-precision);
+    }
+
+    .tg-send-btn {
+      background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%);
+      border: none;
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ═══════════════ ENCLAVE 02: SVG SHIELD FIELD & PROTOCOL ═══════════════ */
+    .shield-field-enclave {
+      background: linear-gradient(180deg, var(--ti-top) 0%, var(--ti-mid) 40%, var(--ti-base) 100%);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-chassis), var(--bevel-inset);
+      margin-bottom: 24px;
     }
 
     .svg-shield-container {
       width: 100%;
       height: 380px;
       background: radial-gradient(circle at 50% 50%, #151E2D 0%, #080C14 100%);
-      border: 1px solid var(--border-chamfer);
+      border: 1px solid var(--hairline-chamfer);
       border-radius: var(--radius-md);
       position: relative;
       overflow: hidden;
       box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.85);
     }
 
-    /* ═══════════════ GUNMETAL PANELS & BENCHMARKS ═══════════════ */
     .dual-column-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -601,11 +698,11 @@
     }
 
     .gunmetal-block {
-      background: linear-gradient(180deg, var(--card-top) 0%, var(--card-mid) 40%, var(--card-base) 100%);
-      border: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--ti-top) 0%, var(--ti-mid) 40%, var(--ti-base) 100%);
+      border: 1px solid var(--hairline);
       border-radius: var(--radius-lg);
       padding: 22px;
-      box-shadow: var(--shadow), inset 0 1px 0 var(--inset);
+      box-shadow: var(--shadow-chassis), var(--bevel-inset);
     }
 
     .block-header {
@@ -613,7 +710,7 @@
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 0.8px;
-      color: var(--text-muted);
+      color: var(--text-steel);
       text-transform: uppercase;
       margin-bottom: 14px;
       display: flex;
@@ -623,18 +720,18 @@
 
     .code-terminal-pre {
       background: #060910;
-      border: 1px solid var(--border);
+      border: 1px solid var(--hairline);
       border-radius: var(--radius-sm);
       padding: 14px;
       font-family: var(--font-mono);
       font-size: 11px;
       line-height: 1.6;
-      color: var(--ice);
+      color: #7DD3FC;
       overflow-x: auto;
       max-height: 280px;
     }
 
-    /* ═══════════════ RANGE SLIDERS ═══════════════ */
+    /* ═══════════════ SLIDERS ═══════════════ */
     .slider-row {
       margin-top: 14px;
     }
@@ -644,12 +741,12 @@
       justify-content: space-between;
       font-family: var(--font-mono);
       font-size: 11px;
-      color: var(--text-slate);
+      color: var(--text-titanium);
       margin-bottom: 6px;
     }
 
     .slider-top strong {
-      color: var(--platinum);
+      color: var(--text-pure);
     }
 
     input[type="range"] {
@@ -666,16 +763,16 @@
       width: 15px;
       height: 15px;
       border-radius: 50%;
-      background: var(--cyan);
+      background: var(--cyan-precision);
       cursor: pointer;
-      box-shadow: 0 0 10px var(--cyan);
+      box-shadow: 0 0 10px var(--cyan-precision);
     }
 
     /* ═══════════════ FOOTER ═══════════════ */
     footer {
-      border-top: 1px solid var(--border);
+      border-top: 1px solid var(--hairline);
       background: #05080E;
-      padding: 18px 24px;
+      padding: 18px 28px;
       margin-top: 40px;
     }
 
@@ -686,12 +783,12 @@
       justify-content: space-between;
       align-items: center;
       font-size: 12px;
-      color: var(--text-muted);
+      color: var(--text-steel);
       font-family: var(--font-mono);
     }
 
     .footer-inner a {
-      color: var(--cyan);
+      color: var(--cyan-precision);
       text-decoration: none;
     }
   </style>
@@ -715,7 +812,7 @@
         <div class="status-pill">
           <span class="status-dot"></span>
           <span>525nm MICROLED:</span>
-          <strong id="headHudStatus" style="color:var(--microled-green)">ACTIVE</strong>
+          <strong id="headHudStatus" style="color:var(--microled-525)">ACTIVE</strong>
         </div>
         <div class="status-pill">
           <span>BLE MTU:</span>
@@ -723,31 +820,28 @@
         </div>
         <div class="status-pill">
           <span>TOKEN DRAIN:</span>
-          <strong style="color:var(--microled-green)">0 TOKENS (SYS 1)</strong>
+          <strong style="color:var(--microled-525)">0 TOKENS (SYS 1)</strong>
         </div>
         <div class="status-pill">
           <span>BATTERY:</span>
-          <strong id="headBattery" style="color:var(--cyan)">20.6 hrs</strong>
+          <strong id="headBattery" style="color:var(--cyan-precision)">20.6 hrs</strong>
         </div>
       </div>
     </div>
 
-    <!-- 5-ENCLAVE NAVIGATION TABS -->
+    <!-- 3-ENCLAVE NAVIGATION TABS -->
     <nav class="tab-bar">
       <button class="tab-btn active" onclick="switchTab(0, this)">
-        <span>01 //</span> WAVEGUIDE OPTICAL VIEWPORT
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M2 12h3m14 0h3M12 2v3m0 14v3"/></svg>
+        <span>01 //</span> WAVEGUIDE OPTICAL VIEWPORT & TELEGRAM BRIDGE
       </button>
       <button class="tab-btn" onclick="switchTab(1, this)">
-        <span>02 //</span> DUAL-CORE SHIELD FIELD (SVG)
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+        <span>02 //</span> DUAL-CORE SHIELD FIELD & BLE PROTOCOL
       </button>
       <button class="tab-btn" onclick="switchTab(2, this)">
-        <span>03 //</span> BLE GATT PROTOCOL TERMINAL
-      </button>
-      <button class="tab-btn" onclick="switchTab(3, this)">
-        <span>04 //</span> TELEGRAM BOT & COMPANION BRIDGE
-      </button>
-      <button class="tab-btn" onclick="switchTab(4, this)">
-        <span>05 //</span> MICROLEAD POWER & THERMAL LAB
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        <span>03 //</span> MICROLEAD PIXEL DENSITY & THERMAL LAB
       </button>
     </nav>
   </header>
@@ -758,56 +852,68 @@
     <section class="stat-matrix">
       <div class="stat-bin">
         <div class="stat-bin-label">
-          <span>System 1 Execution Latency</span>
-          <span style="color:var(--microled-green)">FAST-PATH</span>
+          <span>System 1 Latency</span>
+          <span style="color:var(--microled-525)">FAST-PATH</span>
         </div>
-        <div class="stat-bin-val" style="color:var(--microled-green)" id="valLatency">0.34 ms</div>
+        <div class="stat-bin-val" style="color:var(--microled-525)" id="valLatency">0.34 ms</div>
         <div class="stat-bin-sub">Zero LLM tokens • Deterministic tick math</div>
       </div>
 
       <div class="stat-bin">
         <div class="stat-bin-label">
           <span>System 2 Token Reduction</span>
-          <span style="color:var(--cyan)">TOKEN-THROTTLED</span>
+          <span style="color:var(--cyan-precision)">TOKEN-THROTTLED</span>
         </div>
-        <div class="stat-bin-val" style="color:var(--cyan)">99.38%</div>
+        <div class="stat-bin-val" style="color:var(--cyan-precision)">99.38%</div>
         <div class="stat-bin-sub">Dense 24-token semantic payload on anomaly</div>
       </div>
 
       <div class="stat-bin">
         <div class="stat-bin-label">
           <span>Even G2 Battery Runtime</span>
-          <span style="color:var(--ice)">38g CHASSIS</span>
+          <span style="color:var(--text-platinum)">38g CHASSIS</span>
         </div>
-        <div class="stat-bin-val" style="color:var(--ice)" id="valBatteryHours">20.6 hrs</div>
+        <div class="stat-bin-val" id="valBatteryHours">20.6 hrs</div>
         <div class="stat-bin-sub">1.1% active pixel density (17.6x improvement)</div>
       </div>
 
       <div class="stat-bin">
         <div class="stat-bin-label">
           <span>Autonomous Circuit Breaker</span>
-          <span id="labelBreakerStatus" style="color:var(--microled-green)">NOMINAL</span>
+          <span id="labelBreakerStatus" style="color:var(--microled-525)">NOMINAL</span>
         </div>
-        <div class="stat-bin-val" id="valBreakerState" style="color:var(--platinum)">LOCKED 35bps</div>
-        <div class="stat-bin-sub">Hard-stop on spread spikes or &gt;1.5% volatility</div>
+        <div class="stat-bin-val" id="valBreakerState">LOCKED 35bps</div>
+        <div class="stat-bin-sub">Hard-stop on spread blowout or &gt;1.5% volatility</div>
       </div>
     </section>
 
-    <!-- ═══════════════ ENCLAVE 01: WAVEGUIDE HUD ═══════════════ -->
+    <!-- ═══════════════ ENCLAVE 01: WAVEGUIDE HUD & TELEGRAM BRIDGE ═══════════════ -->
     <section class="tab-panel active" id="tab0">
       <div class="hud-stage">
-        <!-- LEFT: OPTICAL SIMULATOR -->
-        <div class="glasses-chassis-card" id="hudChassisCard">
+        <!-- LEFT: OPTICAL CHASSIS -->
+        <div class="chassis-card" id="hudChassisCard">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-            <div style="font-family:var(--font-mono); font-size:11px; font-weight:700; color:var(--text-muted); letter-spacing:0.8px;">
+            <div style="font-family:var(--font-mono); font-size:11px; font-weight:700; color:var(--text-steel); letter-spacing:0.8px;">
               EVEN REALITIES G2 OPTICAL SIMULATOR • 2.5m VIRTUAL FOCAL DEPTH
             </div>
             <div class="scenery-pills-bar">
-              <span style="font-size:10px; font-family:var(--font-mono); color:var(--text-muted)">TESTBED SCENE:</span>
-              <button class="scenery-btn active" onclick="setScenery(0, this)">✈️ Flight Deck</button>
-              <button class="scenery-btn" onclick="setScenery(1, this)">📈 Trading Floor</button>
-              <button class="scenery-btn" onclick="setScenery(2, this)">🌃 Tokyo Night</button>
-              <button class="scenery-btn" onclick="setScenery(3, this)">🔬 Darkroom</button>
+              <span style="font-size:10px; font-family:var(--font-mono); color:var(--text-steel)">SCENE:</span>
+              <button class="scenery-btn active" onclick="setScenery(0, this)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg>
+                Avionics Deck
+              </button>
+              <button class="scenery-btn" onclick="setScenery(1, this)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                Trading Floor
+              </button>
+              <button class="scenery-btn" onclick="setScenery(2, this)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+                Urban Night
+              </button>
+              <button class="scenery-btn" onclick="setScenery(3, this)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+                Dark Chamber
+              </button>
             </div>
           </div>
 
@@ -817,7 +923,7 @@
               <!-- LEFT OCULAR -->
               <div class="lens-frame">
                 <div style="font-family:var(--font-mono); font-size:9px; color:#475569; position:absolute; bottom:12px; left:16px;">
-                  LEFT EYE (TRANSPARENT PASS-THROUGH)
+                  LEFT EYE (PASS-THROUGH)
                 </div>
               </div>
 
@@ -867,56 +973,66 @@
           </div>
         </div>
 
-        <!-- RIGHT: SHOCK INJECTOR DOCK -->
-        <div class="gunmetal-block" style="display:flex; flex-direction:column; gap:16px;">
+        <!-- RIGHT: INTERACTIVE TELEGRAM COMPANION TERMINAL -->
+        <div class="telegram-terminal-card">
           <div class="block-header">
-            <span>DETERMINISTIC SHOCK INJECTOR</span>
+            <span>TELEGRAM BOT COMPANION (@OpticSentryBot)</span>
             <span class="status-dot"></span>
           </div>
-          <div style="font-size:12px; color:var(--text-slate)">
-            Inject real-time orderbook distortions to verify System 1 circuit breaker response under 0.4ms.
+          <div style="font-size:12px; color:var(--text-titanium); margin-bottom:12px;">
+            Dual-direction Bluetooth LE & Telegram synchronization bridge with HMAC-SHA256 signatures:
           </div>
 
-          <div class="slider-row">
-            <div class="slider-top">
-              <span>SPREAD BLOWOUT:</span>
-              <strong id="dispSpread">14 bps</strong>
+          <!-- ACTIVE TELEGRAM CHAT FEED -->
+          <div class="tg-chat-feed" id="tgChatFeed">
+            <div class="tg-msg">
+              <div class="tg-msg-header">
+                <span>BOT SYSTEM DISPATCH</span>
+                <span>JUST NOW</span>
+              </div>
+              Even G2 Smart Glasses connected via BLE.<br>
+              Firmware: <code>G2-Titanium-2.4.1</code><br>
+              Watchlist active: <code>ETH, BTC, SOL, HYPER, POLY</code>
             </div>
-            <input type="range" min="5" max="80" value="14" oninput="setSpread(this.value)">
           </div>
 
-          <div class="slider-row">
-            <div class="slider-top">
-              <span>INSTANT VOLATILITY SPIKE:</span>
-              <strong id="dispSpike">+0.2%</strong>
-            </div>
-            <input type="range" min="-4.0" max="4.0" step="0.1" value="0.2" oninput="setSpike(this.value)">
+          <!-- INTERACTIVE QUICK ACTION BUTTONS -->
+          <div class="tg-quick-actions">
+            <button class="tg-action-btn" onclick="tgAction('STAND_DOWN')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              Stand Down
+            </button>
+            <button class="tg-action-btn" onclick="tgAction('OVERRIDE')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              Override
+            </button>
+            <button class="tg-action-btn" onclick="tgAction('VIEW_PNL')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              View PnL
+            </button>
           </div>
 
-          <button onclick="injectFlashCrash()" style="background:#E11D48; color:#fff; border:none; padding:12px; border-radius:var(--radius-sm); font-family:var(--font-mono); font-weight:700; font-size:11px; cursor:pointer; margin-top:8px; box-shadow:0 0 15px rgba(225,29,72,0.4)">
-            ⚡ INJECT 58bps SPREAD FLASH CRASH
-          </button>
-
-          <div style="border-top:1px solid var(--border); padding-top:14px; margin-top:4px;">
-            <div style="font-family:var(--font-mono); font-size:10px; color:var(--text-muted); margin-bottom:6px;">HEAD GESTURE SIMULATOR:</div>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-              <button class="scenery-btn" onclick="triggerHeadGesture('NOD')">👤 Nod (Accept)</button>
-              <button class="scenery-btn" onclick="triggerHeadGesture('TILT')">👤 Tilt (Dismiss)</button>
-            </div>
+          <!-- INTERACTIVE COMMAND INPUT -->
+          <div class="tg-input-bar">
+            <input type="text" class="tg-input-field" id="tgInput" placeholder="Try /status, /ticker btc, or /blackout..." onkeydown="if(event.key==='Enter') sendTgCommand()">
+            <button class="tg-send-btn" onclick="sendTgCommand()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              Send
+            </button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ═══════════════ ENCLAVE 02: SVG SHIELD FIELD CENTERPIECE ═══════════════ -->
+    <!-- ═══════════════ ENCLAVE 02: SVG SHIELD FIELD & BLE PROTOCOL ═══════════════ -->
     <section class="tab-panel" id="tab1">
       <div class="shield-field-enclave">
-        <div class="enclave-title-row">
-          <div class="enclave-title">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
-            Dual-Core Split-Brain Architecture (Centerpiece SVG Laser Bus)
+        <div class="enclave-title-row" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+          <div style="font-size:15px; font-weight:800; color:var(--text-pure); display:flex; align-items:center; gap:10px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+            Dual-Core Split-Brain Architecture (SVG Shield Enclaves & Laser Interconnects)
           </div>
-          <div class="badge-sub" style="color:var(--cyan)">PULSING OPTICAL INTERCONNECTS</div>
+          <div class="badge-sub" style="color:var(--cyan-precision)">PULSING OPTICAL INTERCONNECTS</div>
         </div>
 
         <div class="svg-shield-container">
@@ -926,64 +1042,56 @@
                 <stop offset="0%" stop-color="#00F0FF" stop-opacity="0.8"/>
                 <stop offset="100%" stop-color="#00FF66" stop-opacity="0.8"/>
               </linearGradient>
-              <filter id="glowFilter">
-                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-                <feMerge>
-                  <feMergeNode in="coloredBlur"/>
-                  <feMergeNode in="SourceGraphic"/>
-                </feMerge>
-              </filter>
             </defs>
 
-            <!-- ENCLAVE 1: MARKET DATA INGEST -->
+            <!-- ENCLAVE 1: MARKET INGEST -->
             <g transform="translate(40, 100)">
-              <rect width="210" height="150" rx="10" fill="#0E1626" stroke="#1E2B42" stroke-width="1.5"/>
+              <rect width="210" height="150" rx="10" fill="#0B101A" stroke="#1E2B40" stroke-width="1.5"/>
               <text x="20" y="32" fill="#00F0FF" font-family="JetBrains Mono" font-size="11" font-weight="700">ENCLAVE 01 // INGEST</text>
-              <text x="20" y="55" fill="#F1F5F9" font-family="Outfit" font-size="15" font-weight="700">Hyperliquid / Binance</text>
+              <text x="20" y="55" fill="#F8FAFC" font-family="Outfit" font-size="15" font-weight="700">Hyperliquid / Binance</text>
               <text x="20" y="80" fill="#94A3B8" font-family="JetBrains Mono" font-size="10">WebSocket Ticks (0 Tokens)</text>
               <text x="20" y="100" fill="#94A3B8" font-family="JetBrains Mono" font-size="10">Orderbook Depth Parsing</text>
-              <circle cx="185" cy="30" r="4" fill="#00FF66" filter="url(#glowFilter)"/>
             </g>
 
             <!-- ENCLAVE 2: SYSTEM 1 FAST-PATH -->
             <g transform="translate(320, 40)">
-              <rect width="260" height="180" rx="10" fill="#111B2C" stroke="#00FF66" stroke-width="1.5" filter="url(#glowFilter)"/>
+              <rect width="260" height="180" rx="10" fill="#0F1726" stroke="#00FF66" stroke-width="1.5"/>
               <text x="20" y="32" fill="#00FF66" font-family="JetBrains Mono" font-size="11" font-weight="700">SYSTEM 1: DETERMINISTIC FAST</text>
-              <text x="20" y="58" fill="#F1F5F9" font-family="Outfit" font-size="16" font-weight="800">0.34ms Execution Sentinel</text>
-              <text x="20" y="88" fill="#7DD3FC" font-family="JetBrains Mono" font-size="11">• Spread Blowout Breaker (&gt;35bps)</text>
-              <text x="20" y="108" fill="#7DD3FC" font-family="JetBrains Mono" font-size="11">• Volatility Shock Lock (&gt;1.5%)</text>
-              <text x="20" y="128" fill="#7DD3FC" font-family="JetBrains Mono" font-size="11">• Temple Touchpad Handler</text>
+              <text x="20" y="58" fill="#F8FAFC" font-family="Outfit" font-size="16" font-weight="800">0.34ms Execution Sentinel</text>
+              <text x="20" y="88" fill="#94A3B8" font-family="JetBrains Mono" font-size="11">• Spread Blowout Breaker (&gt;35bps)</text>
+              <text x="20" y="108" fill="#94A3B8" font-family="JetBrains Mono" font-size="11">• Volatility Shock Lock (&gt;1.5%)</text>
+              <text x="20" y="128" fill="#94A3B8" font-family="JetBrains Mono" font-size="11">• Temple Touchpad Handler</text>
               <text x="20" y="152" fill="#00FF66" font-family="JetBrains Mono" font-size="11" font-weight="700">COST: $0.00 • 0 TOKENS</text>
             </g>
 
             <!-- ENCLAVE 3: SYSTEM 2 SEMANTIC CO-PILOT -->
             <g transform="translate(320, 240)">
-              <rect width="260" height="95" rx="8" fill="#0D1420" stroke="#334155" stroke-width="1.5"/>
+              <rect width="260" height="95" rx="8" fill="#0B101A" stroke="#334155" stroke-width="1.5"/>
               <text x="18" y="26" fill="#F59E0B" font-family="JetBrains Mono" font-size="10" font-weight="700">SYSTEM 2: SEMANTIC CO-PILOT</text>
-              <text x="18" y="48" fill="#F1F5F9" font-family="Outfit" font-size="13" font-weight="700">Token-Throttled LLM (99.38% Savings)</text>
+              <text x="18" y="48" fill="#F8FAFC" font-family="Outfit" font-size="13" font-weight="700">Token-Throttled LLM (99.38% Savings)</text>
               <text x="18" y="70" fill="#94A3B8" font-family="JetBrains Mono" font-size="9.5">Dense 24-token context • 12-word HUD limit</text>
             </g>
 
-            <!-- ENCLAVE 4: EVEN G2 BLE & WAVEGUIDE -->
+            <!-- ENCLAVE 4: EVEN G2 WAVEGUIDE -->
             <g transform="translate(660, 90)">
-              <rect width="240" height="160" rx="10" fill="#0E1626" stroke="#00F0FF" stroke-width="1.5"/>
+              <rect width="240" height="160" rx="10" fill="#0B101A" stroke="#00F0FF" stroke-width="1.5"/>
               <text x="20" y="32" fill="#00F0FF" font-family="JetBrains Mono" font-size="11" font-weight="700">ENCLAVE 03 // EVEN G2 HUD</text>
-              <text x="20" y="58" fill="#F1F5F9" font-family="Outfit" font-size="16" font-weight="800">525nm Waveguide Optics</text>
+              <text x="20" y="58" fill="#F8FAFC" font-family="Outfit" font-size="16" font-weight="800">525nm Waveguide Optics</text>
               <text x="20" y="85" fill="#94A3B8" font-family="JetBrains Mono" font-size="10.5">• CRC16-CCITT BLE GATT Frames</text>
               <text x="20" y="105" fill="#94A3B8" font-family="JetBrains Mono" font-size="10.5">• 20-Byte Legacy MTU Chunking</text>
               <text x="20" y="125" fill="#00FF66" font-family="JetBrains Mono" font-size="10.5" font-weight="700">• 20.6 hrs All-Day Battery Draw</text>
             </g>
 
-            <!-- ENCLAVE 5: TELEGRAM BOT BRIDGE -->
+            <!-- ENCLAVE 5: TELEGRAM BOT -->
             <g transform="translate(940, 115)">
-              <rect width="130" height="110" rx="8" fill="#0B111D" stroke="#1E3A5F" stroke-width="1.5"/>
+              <rect width="130" height="110" rx="8" fill="#070C15" stroke="#1E3A5F" stroke-width="1.5"/>
               <text x="14" y="26" fill="#93C5FD" font-family="JetBrains Mono" font-size="9" font-weight="700">TELEGRAM BOT</text>
-              <text x="14" y="48" fill="#F1F5F9" font-family="Outfit" font-size="12" font-weight="700">@OpticSentry</text>
+              <text x="14" y="48" fill="#F8FAFC" font-family="Outfit" font-size="12" font-weight="700">@OpticSentry</text>
               <text x="14" y="70" fill="#64748B" font-family="JetBrains Mono" font-size="8.5">HMAC-SHA256</text>
               <text x="14" y="88" fill="#00FF66" font-family="JetBrains Mono" font-size="8.5">SYNC: 100%</text>
             </g>
 
-            <!-- PULSING LASER INTERCONNECT CONDUITS -->
+            <!-- PULSING DATA CONDUITS -->
             <path d="M 250 175 L 320 130" stroke="url(#laserCyan)" stroke-width="2.5" stroke-dasharray="6,4" fill="none"/>
             <path d="M 250 175 L 320 285" stroke="#334155" stroke-width="1.5" stroke-dasharray="4,4" fill="none"/>
             <path d="M 580 130 L 660 170" stroke="url(#laserCyan)" stroke-width="2.5" stroke-dasharray="6,4" fill="none"/>
@@ -992,24 +1100,19 @@
           </svg>
         </div>
       </div>
-    </section>
 
-    <!-- ═══════════════ ENCLAVE 03: BLE GATT TERMINAL ═══════════════ -->
-    <section class="tab-panel" id="tab2">
+      <!-- LOWER: BLE GATT PROTOCOL TERMINAL -->
       <div class="dual-column-grid">
         <div class="gunmetal-block">
           <div class="block-header">
             <span>LIVE BLE GATT PACKET INSPECTOR</span>
-            <span class="pill" style="font-size:9px">20-BYTE MTU CHUNKED</span>
-          </div>
-          <div style="font-size:12px; color:var(--text-slate); margin-bottom:12px;">
-            Raw binary GATT characteristics delivered to Even Realities G2 smart glasses receiver:
+            <span class="status-pill" style="font-size:9px">20-BYTE MTU CHUNKED</span>
           </div>
           <pre class="code-terminal-pre" id="bleHexTerminal">
 [00:00:01] TX FRAME #0042 (26 bytes)
 HEADER: 0xAA 0x03 0x2A 0x14
 PAYLOAD: "ETH $3,142.50 ▲2.4%"
-CRC16: 0x8F4E (MATCH)
+CRC16: 0x8F4E (VALID MATCH)
 ----------------------------------------
 FRAGMENTING FOR BLE 20B MTU:
 CHUNK 01: 0xAB 0x00 0x02 45 54 48 20 24 33 31 34 32 2E 35 30 20 C2 A6
@@ -1021,9 +1124,9 @@ TRANSPORT STATUS: ZERO PACKET DROP (ACK 112 μs)
         <div class="gunmetal-block">
           <div class="block-header">
             <span>PACKET ENCODING INVARIANTS</span>
-            <span style="color:var(--microled-green)">15/15 TESTS VERIFIED</span>
+            <span style="color:var(--microled-525)">15/15 TESTS VERIFIED</span>
           </div>
-          <div style="font-size:12px; color:var(--text-slate); line-height:1.6">
+          <div style="font-size:12px; color:var(--text-titanium); line-height:1.6">
             • <strong>Magic Header Byte:</strong> <code>0xAA</code> synchronizes receiver frame boundaries.<br>
             • <strong>CRC16-CCITT Checksum:</strong> Polynomial <code>0x1021</code> guarantees frame rejection on tampering.<br>
             • <strong>MTU 20-Byte Fragmentation:</strong> Reserved 3-byte prefix (<code>0xAB [idx] [total]</code>) guarantees backward compatibility with BLE 4.2 / 5.0.<br>
@@ -1033,56 +1136,15 @@ TRANSPORT STATUS: ZERO PACKET DROP (ACK 112 μs)
       </div>
     </section>
 
-    <!-- ═══════════════ ENCLAVE 04: TELEGRAM COMPANION BRIDGE ═══════════════ -->
-    <section class="tab-panel" id="tab3">
-      <div class="dual-column-grid">
-        <div class="gunmetal-block">
-          <div class="block-header">
-            <span>TELEGRAM MINI APP SIMULATOR (@OpticSentryBot)</span>
-            <span class="status-dot"></span>
-          </div>
-          <div style="background:#08101D; border:1px solid #1E2D44; border-radius:var(--radius-md); padding:16px;">
-            <div style="font-family:var(--font-mono); font-size:11px; color:#93C5FD; line-height:1.6; white-space:pre-wrap;" id="tgChatDisplay">
-👓 <strong>Even G2 OpticSentry Alert</strong>
-• <strong>Asset:</strong> <code>ETH</code>
-• <strong>Event:</strong> <code>NOMINAL_STREAMING</code>
-• <strong>Spread:</strong> 14 bps
-• <strong>Glass Battery:</strong> 93.8%
-• <strong>HMAC-SHA256:</strong> <code>e4b7891fa3028c9b...</code>
-            </div>
-            <div style="display:flex; gap:8px; margin-top:14px;">
-              <button class="scenery-btn active" style="flex:1">🛡️ STAND DOWN</button>
-              <button class="scenery-btn" style="flex:1">⚡ OVERRIDE</button>
-              <button class="scenery-btn" style="flex:1">📊 VIEW PnL</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="gunmetal-block">
-          <div class="block-header">
-            <span>CRYPTOGRAPHIC HMAC-SHA256 VERIFICATION</span>
-            <span style="color:var(--cyan)">ZERO TRUST</span>
-          </div>
-          <div style="font-size:12px; color:var(--text-slate); line-height:1.6;">
-            Every telemetry packet transmitted from the Even G2 smart glasses is signed using an on-device secret key. The Telegram bot verifies signatures to prevent unauthorized trade injections.
-          </div>
-          <div style="margin-top:14px; font-family:var(--font-mono); font-size:10.5px; background:#060A13; padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border);">
-            SIG: <span style="color:var(--cyan)">e4b7891fa3028c9b910471928dfac9018471bcca</span><br>
-            STATUS: <span style="color:var(--microled-green)">VALID SIGNATURE (AUTHENTICATED)</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════ ENCLAVE 05: MICROLEAD POWER & THERMAL LAB ═══════════════ -->
-    <section class="tab-panel" id="tab4">
+    <!-- ═══════════════ ENCLAVE 03: MICROLEAD POWER & THERMAL LAB ═══════════════ -->
+    <section class="tab-panel" id="tab2">
       <div class="dual-column-grid">
         <div class="gunmetal-block">
           <div class="block-header">
             <span>525nm MICROLEAD POWER DEPLETION MODEL</span>
-            <span style="color:var(--microled-green)">684 mWh BATTERY</span>
+            <span style="color:var(--microled-525)">684 mWh BATTERY</span>
           </div>
-          <div style="font-size:12px; color:var(--text-slate); margin-bottom:14px;">
+          <div style="font-size:12px; color:var(--text-titanium); margin-bottom:14px;">
             Adjust active raster density to observe physical power dissipation vs battery runtime.
           </div>
 
@@ -1095,13 +1157,13 @@ TRANSPORT STATUS: ZERO PACKET DROP (ACK 112 μs)
           </div>
 
           <div style="margin-top:16px; display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-            <div style="background:#090E1A; padding:12px; border-radius:var(--radius-sm); border:1px solid var(--border);">
-              <div style="font-size:10px; font-family:var(--font-mono); color:var(--text-muted)">DISPLAY POWER</div>
-              <div style="font-size:18px; font-family:var(--font-mono); font-weight:700; color:var(--microled-green)" id="labPower">21.2 mW</div>
+            <div style="background:#090E1A; padding:12px; border-radius:var(--radius-sm); border:1px solid var(--hairline);">
+              <div style="font-size:10px; font-family:var(--font-mono); color:var(--text-steel)">DISPLAY POWER</div>
+              <div style="font-size:18px; font-family:var(--font-mono); font-weight:700; color:var(--microled-525)" id="labPower">21.2 mW</div>
             </div>
-            <div style="background:#090E1A; padding:12px; border-radius:var(--radius-sm); border:1px solid var(--border);">
-              <div style="font-size:10px; font-family:var(--font-mono); color:var(--text-muted)">RUNTIME DURATION</div>
-              <div style="font-size:18px; font-family:var(--font-mono); font-weight:700; color:var(--cyan)" id="labRuntime">20.6 hrs</div>
+            <div style="background:#090E1A; padding:12px; border-radius:var(--radius-sm); border:1px solid var(--hairline);">
+              <div style="font-size:10px; font-family:var(--font-mono); color:var(--text-steel)">RUNTIME DURATION</div>
+              <div style="font-size:18px; font-family:var(--font-mono); font-weight:700; color:var(--cyan-precision)" id="labRuntime">20.6 hrs</div>
             </div>
           </div>
         </div>
@@ -1109,9 +1171,9 @@ TRANSPORT STATUS: ZERO PACKET DROP (ACK 112 μs)
         <div class="gunmetal-block">
           <div class="block-header">
             <span>PHYSICAL COMPETITIVE BENCHMARK</span>
-            <span style="color:var(--cyan)">17.6x ADVANTAGE</span>
+            <span style="color:var(--cyan-precision)">17.6x ADVANTAGE</span>
           </div>
-          <div style="font-size:12px; color:var(--text-slate); line-height:1.6">
+          <div style="font-size:12px; color:var(--text-titanium); line-height:1.6">
             • <strong>Conventional GUI Apps:</strong> Render dense full-screen dialogs (~38,000 active pixels = 570 mW). Battery dies in <strong>1.17 hours</strong>.<br><br>
             • <strong>OpticSentry OS:</strong> Uses micro-telegraphic single-line typography (~1,416 active pixels = 21.2 mW). Battery lasts <strong>20.6 hours</strong> of continuous wear without charging.
           </div>
@@ -1157,7 +1219,7 @@ TRANSPORT STATUS: ZERO PACKET DROP (ACK 112 μs)
       osc.stop(audioCtx.currentTime + d);
     }
 
-    // TAB SWITCHER
+    // 3-TAB SWITCHER
     function switchTab(index, btn) {
       clickSound(600);
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -1191,12 +1253,12 @@ TRANSPORT STATUS: ZERO PACKET DROP (ACK 112 μs)
       if (stealthMode) {
         card.classList.add('hud-stealth-active');
         document.getElementById('headHudStatus').innerText = 'BLACKOUT';
-        document.getElementById('headHudStatus').style.color = 'var(--text-muted)';
+        document.getElementById('headHudStatus').style.color = 'var(--text-steel)';
         return;
       } else {
         card.classList.remove('hud-stealth-active');
         document.getElementById('headHudStatus').innerText = 'ACTIVE';
-        document.getElementById('headHudStatus').style.color = 'var(--microled-green)';
+        document.getElementById('headHudStatus').style.color = 'var(--microled-525)';
       }
 
       if (circuitTripped) {
@@ -1205,9 +1267,9 @@ TRANSPORT STATUS: ZERO PACKET DROP (ACK 112 μs)
         document.getElementById('hudAssetStats').innerText = `SPREAD > 35 bps | BREAKER LOCKED`;
         document.getElementById('hudActionPrompt').innerText = `2-TAP TEMPLE TO DISMISS`;
         document.getElementById('labelBreakerStatus').innerText = 'ENGAGED';
-        document.getElementById('labelBreakerStatus').style.color = 'var(--alert-crimson)';
+        document.getElementById('labelBreakerStatus').style.color = 'var(--alert-halt)';
         document.getElementById('valBreakerState').innerText = 'CIRCUIT HALTED';
-        document.getElementById('valBreakerState').style.color = 'var(--alert-crimson)';
+        document.getElementById('valBreakerState').style.color = 'var(--alert-halt)';
       } else {
         card.classList.remove('hud-alert-active');
         const arrow = a.change >= 0 ? '▲' : '▼';
@@ -1215,9 +1277,9 @@ TRANSPORT STATUS: ZERO PACKET DROP (ACK 112 μs)
         document.getElementById('hudAssetStats').innerText = `SPREAD: ${a.spread} bps | SLIP: 0.12%`;
         document.getElementById('hudActionPrompt').innerText = `TAP RIGHT TEMPLE TO APPROVE`;
         document.getElementById('labelBreakerStatus').innerText = 'NOMINAL';
-        document.getElementById('labelBreakerStatus').style.color = 'var(--microled-green)';
+        document.getElementById('labelBreakerStatus').style.color = 'var(--microled-525)';
         document.getElementById('valBreakerState').innerText = 'LOCKED 35bps';
-        document.getElementById('valBreakerState').style.color = 'var(--platinum)';
+        document.getElementById('valBreakerState').style.color = 'var(--text-platinum)';
       }
     }
 
@@ -1225,61 +1287,27 @@ TRANSPORT STATUS: ZERO PACKET DROP (ACK 112 μs)
       if (type === 'SINGLE_TAP') {
         clickSound(880);
         if (!circuitTripped) {
-          alert(`✅ Order Confirmed on ${assets[assetIdx].sym} via Even G2 Right Temple Touchpad! Routed to testnet.`);
+          const a = assets[assetIdx];
+          addTgMessage("ORDER ROUTED", `Right temple single-tap confirmed order on ${a.sym} at $${a.price.toFixed(2)}. Routed to testnet.`);
         }
       } else if (type === 'DOUBLE_TAP') {
         clickSound(320);
         circuitTripped = false;
-        setSpread(14);
+        addTgMessage("BREAKER RESET", `Circuit breaker disengaged by temple double-tap. Normal HUD restored.`);
       } else if (type === 'LONG_PRESS') {
         clickSound(450);
         stealthMode = !stealthMode;
+        addTgMessage("STEALTH TOGGLE", stealthMode ? "Optical HUD blackout engaged. Display powered down." : "Optical HUD reactivated.");
       }
       updateHUD();
-    }
-
-    function triggerHeadGesture(g) {
-      clickSound(680);
-      if (g === 'NOD') {
-        triggerGesture('SINGLE_TAP');
-      } else if (g === 'TILT') {
-        triggerGesture('DOUBLE_TAP');
-      }
     }
 
     function cycleAsset() {
       clickSound(720);
       assetIdx = (assetIdx + 1) % assets.length;
       updateHUD();
-    }
-
-    function setSpread(val) {
-      document.getElementById('dispSpread').innerText = `${val} bps`;
-      assets[assetIdx].spread = parseInt(val);
-      if (val > 35) {
-        circuitTripped = true;
-        clickSound(260, 'sawtooth', 0.2);
-      } else {
-        circuitTripped = false;
-      }
-      updateHUD();
-    }
-
-    function setSpike(val) {
-      document.getElementById('dispSpike').innerText = `${parseFloat(val) > 0 ? '+' : ''}${val}%`;
-      assets[assetIdx].change = parseFloat(val);
-      if (Math.abs(val) > 1.5) {
-        circuitTripped = true;
-        clickSound(240, 'square', 0.25);
-      } else {
-        circuitTripped = false;
-      }
-      updateHUD();
-    }
-
-    function injectFlashCrash() {
-      setSpread(58);
-      setSpike(-3.8);
+      const a = assets[assetIdx];
+      addTgMessage("WATCHLIST SWITCH", `Even G2 HUD switched to ${a.sym} ($${a.price.toFixed(2)}).`);
     }
 
     function updateLabPower(pixels) {
@@ -1292,9 +1320,75 @@ TRANSPORT STATUS: ZERO PACKET DROP (ACK 112 μs)
       document.getElementById('labRuntime').innerText = `${runtime} hrs`;
     }
 
+    // FUNCTIONAL TELEGRAM BOT SIMULATOR
+    function addTgMessage(title, text) {
+      const feed = document.getElementById('tgChatFeed');
+      const d = new Date();
+      const timeStr = d.toTimeString().split(' ')[0];
+      const msg = document.createElement('div');
+      msg.className = 'tg-msg';
+      msg.innerHTML = `
+        <div class="tg-msg-header">
+          <span>${title}</span>
+          <span>${timeStr}</span>
+        </div>
+        ${text}
+      `;
+      feed.appendChild(msg);
+      feed.scrollTop = feed.scrollHeight;
+    }
+
+    function tgAction(act) {
+      clickSound(650);
+      if (act === 'STAND_DOWN') {
+        circuitTripped = true;
+        updateHUD();
+        addTgMessage("COMMAND: STAND DOWN", "Stand down command acknowledged from Telegram. Even G2 optical HUD locked in safety mode.");
+      } else if (act === 'OVERRIDE') {
+        circuitTripped = false;
+        updateHUD();
+        addTgMessage("COMMAND: OVERRIDE", "Safety override authenticated via Telegram HMAC-SHA256 signature. Execution unblocked.");
+      } else if (act === 'VIEW_PNL') {
+        addTgMessage("LIVE PnL REPORT", "Open Positions: 3 active<br>• ETH/USDT: +$342.10 (+3.8%)<br>• BTC/USDT: +$1,120.50 (+1.9%)<br>• SOL/USDT: -$18.40 (-0.3%)<br><strong>Net Daily PnL: +$1,444.20</strong>");
+      }
+    }
+
+    function sendTgCommand() {
+      const input = document.getElementById('tgInput');
+      const val = input.value.trim();
+      if (!val) return;
+      input.value = '';
+      clickSound(800);
+
+      addTgMessage("YOU", `<code>${val}</code>`);
+
+      setTimeout(() => {
+        const lower = val.toLowerCase();
+        if (lower.startsWith('/status')) {
+          addTgMessage("BOT STATUS", `Even G2 Battery: 93.8% (20.6 hrs remaining)<br>BLE MTU: 20 bytes<br>Active Asset: ${assets[assetIdx].sym}<br>Breaker State: ${circuitTripped ? 'ENGAGED' : 'NOMINAL'}`);
+        } else if (lower.startsWith('/ticker')) {
+          const sym = lower.replace('/ticker', '').trim().toUpperCase();
+          const found = assets.findIndex(a => a.sym === sym);
+          if (found !== -1) {
+            assetIdx = found;
+            updateHUD();
+            addTgMessage("BOT DISPATCH", `Switched Even G2 optical display to ${sym}.`);
+          } else {
+            addTgMessage("BOT ERROR", `Asset ${sym} not found in active watchlist.`);
+          }
+        } else if (lower.startsWith('/blackout')) {
+          stealthMode = !stealthMode;
+          updateHUD();
+          addTgMessage("BOT DISPATCH", stealthMode ? "Optical blackout engaged on Even G2." : "Optical blackout deactivated.");
+        } else {
+          addTgMessage("BOT HELP", "Available commands:<br>• <code>/status</code> — System telemetry<br>• <code>/ticker [sym]</code> — Switch HUD asset<br>• <code>/blackout</code> — Toggle stealth display");
+        }
+      }, 350);
+    }
+
     // Jitter live latency
     setInterval(() => {
-      const lat = (0.28 + Math.random() * 0.14).toFixed(2);
+      const lat = (0.28 + Math.random() * 0.12).toFixed(2);
       document.getElementById('valLatency').innerText = `${lat} ms`;
       updateHUD();
     }, 1000);
