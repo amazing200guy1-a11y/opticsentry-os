@@ -16,7 +16,7 @@
 > **GitHub:** [amazing200guy1-a11y](https://github.com/amazing200guy1-a11y)  
 > **Target Competition:** Heads Up: Even Realities Hackathon by TVM Ventures & Daos Hub (DoraHacks)  
 > **Track:** Track 01 — Messaging & News (Telegram Bot + Telegram Mini App)  
-> **Demo Video:** *(YouTube link — to be attached after recording)*
+> **Demo Video:** [Watch OpticSentry OS on YouTube](https://youtu.be/nNJcbYAju0o)  
 
 ---
 
